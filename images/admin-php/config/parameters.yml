@@ -1,0 +1,75 @@
+parameters:
+  database_driver: pdo_mysql
+  database_host: admin_db
+  database_port: null
+  database_name: os2display
+  database_user: os2display
+  database_password: os2display
+
+  mailer_transport: smtp
+  mailer_host: mailhog
+  mailer_user: null
+  mailer_password: null
+  mailer_port: 1025
+
+  locale: en
+  secret: ThisTokenIsNotSoSecretChangeIt
+  debug_toolbar: false
+  debug_redirects: false
+
+  use_assetic_controller: true
+
+  absolute_path_to_server: 'https://admin_php.docker'
+
+  zencoder_api: 1234567890
+
+  mailer_from_email: admin@example.com
+  mailer_from_name: Admin
+
+  templates_directory: ik-templates/
+
+  sharing_enabled: false
+  sharing_host: https://search_node.docker
+  sharing_path: /api
+  sharing_apikey: 88cfd4b277f3f8b6c7c15d7a84784067
+
+  search_host: https://search_node.docker
+  search_path: /api
+  search_apikey: 795359dd2c81fa41af67faa2f9adbd32
+  search_index: e7df7cd2ca07f4f1ab415d457a6e1c13
+  search_filter_default: all
+
+  middleware_host: https://middleware.docker
+  middleware_path: /api
+  middleware_apikey: 059d9d9c50e0c45b529407b183b6a02f
+
+  templates_slides_directory: templates/slides/
+  templates_slides_enabled:
+    - manual-calendar
+    - only-image
+    - only-video
+    - portrait-text-top
+    - text-bottom
+    - text-left
+    - text-right
+    - text-top
+    - ik-iframe
+    - header-top
+    - event-calendar
+    - wayfinding
+
+  templates_screens_directory: templates/screens/
+  templates_screens_enabled:
+    - full-screen
+    - five-sections
+    - full-screen-portrait
+
+  site_title: 'OS2 display - docker'
+
+  version: 1.0.0
+
+  itk_log_version: 1
+  itk_log_error_callback: /api/error
+  itk_log_log_to_console: true
+  itk_log_log_level: all
+

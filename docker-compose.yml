@@ -1,0 +1,85 @@
+version: "3"
+services:
+
+  admin_nginx:
+    build: images/admin-nginx
+    ports:
+      - 80
+    # We need search_node and middleware to be resolvable before starting.
+    depends_on:
+      - middleware
+      - search_node
+    environment:
+      VIRTUAL_HOST: admin.docker
+    networks:
+      - backend
+
+  admin_php:
+    build: images/admin-php
+    networks:
+      - backend
+
+  elasticsearch:
+    build: images/elasticsearch
+    networks:
+      - backend
+    volumes:
+      - es-data:/var/lib/elasticsearch
+
+  redis:
+    build: images/redis
+    networks:
+      - backend
+
+  search_node:
+    build: images/search_node
+    ports:
+      - 3010
+    volumes:
+      # Mount in a log-tailer that will output our logs to standard out
+      - './images/search_node/tools/log-stream-service.sh:/etc/my_init.d/99_log-tailer:ro'
+    depends_on:
+      - elasticsearch
+    networks:
+      - backend
+    environment:
+      VIRTUAL_HOST: search.docker
+
+  middleware:
+    build: images/middleware
+    ports:
+      - 3020
+    networks:
+      - backend
+    depends_on:
+      - redis
+    volumes:
+      # Mount in a log-tailer that will output our logs to standard out
+      - './images/middleware/tools/log-stream-service.sh:/etc/my_init.d/99_log-tailer:ro'
+    environment:
+      VIRTUAL_HOST: middleware.docker
+
+  admin_db:
+    image: mariadb:10
+    networks:
+      - backend
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: os2display
+      MYSQL_USER: os2display
+      MYSQL_PASSWORD: os2display
+    volumes:
+      - db-data:/var/lib/mysql
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "8025:8025"
+
+
+networks:
+  backend:
+
+volumes:
+  es-data:
+  db-data:

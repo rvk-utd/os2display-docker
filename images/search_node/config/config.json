@@ -1,0 +1,21 @@
+{
+  "port": 3010,
+  "secret": "MySuperSecret",
+  "admin": {
+    "username": "admin",
+    "password": "admin"
+  },
+  "logs": {
+    "all": "logs/messages.log",
+    "info": "logs/info.log",
+    "error": "logs/error.log",
+    "debug": "logs/debug.log",
+    "socket": "logs/socket.log"
+  },
+  "search": {
+    "hosts": [ "elasticsearch:9200" ],
+    "mappings": "mappings.json"
+  },
+  "apikeys": "apikeys.json",
+  "sentryUrl": "https://xxx:xxx@app.getsentry.com/xxx"
+}

@@ -1,0 +1,5 @@
+FROM phusion/baseimage:0.11
+
+RUN apt-get update
+RUN apt-get install sudo
+RUN apt-get upgrade -y -o Dpkg::Options::="--force-confold" && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
