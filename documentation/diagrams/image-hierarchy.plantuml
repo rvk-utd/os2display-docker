@@ -14,18 +14,18 @@ artifact redis
 artifact search_node
 artifact screen
 
-docker_base --> phusion_baseimage
-nginx_base --> docker_base
-node_base --> docker_base
-php_base --> docker_base
+docker_base <-- phusion_baseimage
+nginx_base <-- docker_base
+node_base <-- docker_base
+php_base <-- docker_base
 
-screen --> docker_base
-admin_nginx --> nginx_base
-admin_php --> php_base
-elasticsearch --> docker_base
-search_node --> node_base
-middleware --> node_base
-admin_release --> php_base
-redis --> docker_base
+screen <-- docker_base
+admin_nginx <-- nginx_base
+admin_php <-- php_base
+elasticsearch <-- docker_base
+search_node <-- node_base
+middleware <-- node_base
+admin_release <-- php_base
+redis <-- docker_base
 
 @enduml
