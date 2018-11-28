@@ -34,6 +34,8 @@ docker build \
 docker build \
  -t os2display/admin-release \
  -f admin-release/Dockerfile \
+ --build-arg branch=kk-develop \
+ --build-arg repository=https://github.com/kkos2/os2display-admin.git \
  admin-release
 
 docker build \
@@ -55,7 +57,8 @@ docker build \
  -t os2display/search_node \
  -f search_node/Dockerfile \
  --build-arg branch=feature/support-non-default-es-host \
- --build-arg repository=https://github.com/kkos2/search_node.git search_node
+ --build-arg repository=https://github.com/kkos2/search_node.git \
+ search_node
 
 docker build \
  -t os2display/middleware \
