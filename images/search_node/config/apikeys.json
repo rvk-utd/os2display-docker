@@ -3,8 +3,7 @@
     "name": "IK3",
     "expire": 300,
     "indexes": [
-      "e7df7cd2ca07f4f1ab415d457a6e1c13",
-      "de831b7bf75d90f6641b4918dde0ddba"
+      "e7df7cd2ca07f4f1ab415d457a6e1c13"
     ],
     "access": "rw"
   },

@@ -1,30 +1,18 @@
-FROM phusion/baseimage:0.11
+FROM os2display/docker-base as fetcher
+ARG branch=master
+ARG repository=https://github.com/os2display/middleware
 
-# Use baseimage-docker's init system.
-CMD ["/sbin/my_init"]
+RUN apt-get -y --no-install-recommends install git
 
-# ...put your own build instructions here...
-## Create a user for the web app.
-RUN addgroup --gid 9999 app
-RUN adduser --uid 9999 --gid 9999 --disabled-password --gecos "Application" app
-RUN usermod -L app
-RUN mkdir -p /home/app/.ssh
-RUN chmod 700 /home/app/.ssh
-RUN chown app:app /home/app/.ssh
+# Fetch minimal history
+RUN git clone --depth=1 --branch=${branch} ${repository} /opt/middleware
+RUN rm -rf /opt/middleware/.git
 
-# Do a general OS update.
-RUN apt-get update
-RUN apt-get upgrade -y -o Dpkg::Options::="--force-confold"
+FROM os2display/node-base
 
-RUN apt-get install -y --no-install-recommends nodejs npm
-
-RUN npm update npm -g
-
-# Clean up APT when done.
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-COPY --chown=app:app middleware /home/app/middleware
+COPY --chown=app:app  --from=fetcher /opt/middleware /home/app/middleware
 WORKDIR /home/app/middleware
+
 RUN mkdir logs
 RUN touch logs/messages.log logs/info.log logs/error.log logs/debug.log logs/socket.log
 RUN chown -R app:app logs

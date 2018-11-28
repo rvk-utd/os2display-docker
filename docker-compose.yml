@@ -1,63 +1,83 @@
-version: "3"
+version: "3.2"
 services:
 
   admin_nginx:
-    build: images/admin-nginx
+    image: os2display/admin-nginx
     ports:
       - 80
     # We need search_node and middleware to be resolvable before starting.
+    volumes:
+      - admin-release:/var/www/admin
+      - symfony-cache:/var/www/admin/app/cache
+      - admin-uploads:/var/www/admin/web/uploads
     depends_on:
       - middleware
       - search_node
+      - admin_release
     environment:
-      VIRTUAL_HOST: admin.docker
+      VIRTUAL_HOST: admin.os2display.docker
     networks:
       - backend
 
   admin_php:
-    build: images/admin-php
+    image: os2display/admin-php
+    depends_on:
+      - admin_release
+    volumes:
+      - admin-release:/var/www/admin
+      - admin-uploads:/var/www/admin/web/uploads
+      - symfony-cache:/var/www/admin/app/cache
+      - ./development/config/parameters.yml:/var/www/admin/app/config/parameters.yml
+      - ./development/scripts:/opt/development/scripts
+    networks:
+      - backend
+
+  admin_release:
+    image: os2display/admin-release
+    volumes:
+      - admin-release:/var/www/admin
     networks:
       - backend
 
   elasticsearch:
-    build: images/elasticsearch
+    image: os2display/elasticsearch
     networks:
       - backend
     volumes:
       - es-data:/var/lib/elasticsearch
 
-  redis:
-    build: images/redis
-    networks:
-      - backend
-
   search_node:
-    build: images/search_node
+    image: os2display/search_node
     ports:
       - 3010
     volumes:
       # Mount in a log-tailer that will output our logs to standard out
       - './images/search_node/tools/log-stream-service.sh:/etc/my_init.d/99_log-tailer:ro'
+    environment:
+      VIRTUAL_HOST: search.os2display.docker
     depends_on:
       - elasticsearch
     networks:
       - backend
-    environment:
-      VIRTUAL_HOST: search.docker
+
+  redis:
+    image: os2display/redis
+    networks:
+      - backend
 
   middleware:
-    build: images/middleware
+    image: os2display/middleware
     ports:
       - 3020
     networks:
       - backend
+    environment:
+      VIRTUAL_HOST: middleware.os2display.docker
     depends_on:
       - redis
     volumes:
       # Mount in a log-tailer that will output our logs to standard out
       - './images/middleware/tools/log-stream-service.sh:/etc/my_init.d/99_log-tailer:ro'
-    environment:
-      VIRTUAL_HOST: middleware.docker
 
   admin_db:
     image: mariadb:10
@@ -76,6 +96,18 @@ services:
     ports:
       - "8025:8025"
 
+  screen:
+    image: os2display/screen
+    ports:
+      - 80
+    environment:
+      VIRTUAL_HOST: screen.os2display.docker
+    networks:
+      - backend
+    # We proxy these so need them to exist.
+    depends_on:
+      - middleware
+      - search_node
 
 networks:
   backend:
@@ -83,3 +115,10 @@ networks:
 volumes:
   es-data:
   db-data:
+  admin-uploads:
+  symfony-cache:
+  admin-release:
+    driver_opts:
+      type: none
+      device: $PWD/development/admin
+      o: bind
