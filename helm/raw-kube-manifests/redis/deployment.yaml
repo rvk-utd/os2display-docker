@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+  labels:
+    app: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+      - image: kkos2display/redis:latest
+        // TODO: Should this be IfNotPresent ?
+        imagePullPolicy: Always
+        name: redis
+        ports:
+        - name: main-port
+          containerPort: 6379

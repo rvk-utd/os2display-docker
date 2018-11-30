@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: middleware-config
+data:
+  apikeys.json: |
+    {
+      "059d9d9c50e0c45b529407b183b6a02f": {
+        "name": "IK3",
+        "backend": "http://admin",
+        "expire": 300
+      }
+    }
+  config.json: |
+    {
+      "port": 3020,
+      "secret": "MySuperSecret",
+      "logs": {
+        "all": "logs/messages.log",
+        "info": "logs/info.log",
+        "error": "logs/error.log",
+        "debug": "logs/debug.log",
+        "exception": "logs/exceptions.log",
+        "socket": "logs/socket.log"
+      },
+      "admin": {
+        "username": "admin",
+        "password": "admin"
+      },
+      "cache": {
+        "port": "6379",
+        "host": "redis",
+        "auth": null,
+        "db": 0
+      },
+      "apikeys": "apikeys.json"
+    }

@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: search
+  labels:
+    app: search
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: search
+  template:
+    metadata:
+      labels:
+        app: search
+    spec:
+      containers:
+      - image: kkos2display/search:support-non-default-es-host
+        // TODO: Should this be IfNotPresent ?
+        imagePullPolicy: Always
+        name: search
+        ports:
+        - name: main-port
+          containerPort: 3010

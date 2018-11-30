@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: admin
+  labels:
+    app: admin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: admin
+  template:
+    metadata:
+      labels:
+        app: admin
+    spec:
+      hostAliases:
+        - ip: "127.0.0.1"
+          hostnames:
+            - "admin-php"
+      containers:
+      - image: kkos2display/admin-nginx
+        // TODO: Should this be IfNotPresent ?
+        imagePullPolicy: Always
+        name: admin-nginx
+        volumeMounts:
+        - name: release
+          mountPath: /var/www
+        ports:
+        - name: main-port
+          containerPort: 80
+      - image: kkos2display/admin-php
+        // TODO: Should this be IfNotPresent ?
+        imagePullPolicy: Always
+        name: admin-php
+        volumeMounts:
+        - name: release
+          mountPath: /var/www
+        - name: php-parameters
+          mountPath: /var/www/admin/app/config/parameters.yml
+          subPath: parameters.yml
+        ports:
+        - name: fpm-port
+          containerPort: 9000
+        hostAliases:
+          - ip: "127.0.0.1"
+            hostnames:
+              - "admin-php"
+      initContainers:
+      - name: init
+        image: kkos2display/admin-release:latest
+        imagePullPolicy: Always
+        command: ['/opt/kube-init.sh']
+        volumeMounts:
+        - name: release
+          mountPath: /release
+      volumes:
+        - name: release
+          emptyDir: {}
+        - name: php-parameters
+          configMap:
+            name: admin-php-parameters

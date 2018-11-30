@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: middleware
+  labels:
+    app: middleware
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: middleware
+  template:
+    metadata:
+      labels:
+        app: middleware
+    spec:
+      containers:
+      - image: kkos2display/middleware:latest
+        // TODO: Should this be IfNotPresent ?
+        imagePullPolicy: Always
+        name: middleware
+        ports:
+        - name: main-port
+          containerPort: 3020
+        volumeMounts:
+          - name: config-volume
+            mountPath: /home/app/middleware/config.json
+            subPath: config.json
+          - name: config-volume
+            mountPath: /home/app/middleware/apikeys.json
+            subPath: apikeys.json
+      volumes:
+        - name: config-volume
+          configMap:
+            name: middleware-config
