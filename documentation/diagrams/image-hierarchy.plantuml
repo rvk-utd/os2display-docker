@@ -23,7 +23,7 @@ screen <-- docker_base
 admin_nginx <-- nginx_base
 admin_php <-- php_base
 elasticsearch <-- docker_base
-search_node <-- node_base
+search <-- node_base
 middleware <-- node_base
 admin_release <-- php_base
 redis <-- docker_base
