@@ -1,4 +1,4 @@
-FROM os2display/docker-base
+FROM kkos2display/docker-base
 
 # Do a general OS update.
 RUN apt-get install -y --no-install-recommends\

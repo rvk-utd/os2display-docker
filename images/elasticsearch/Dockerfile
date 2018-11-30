@@ -1,4 +1,4 @@
-FROM os2display/docker-base
+FROM kkos2display/docker-base
 
 ARG es_version=1.7.1
 

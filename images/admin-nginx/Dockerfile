@@ -1,4 +1,4 @@
-FROM os2display/nginx-base
+FROM kkos2display/nginx-base
 
 WORKDIR /var/www/admin
 

@@ -11,7 +11,7 @@ artifact admin_release as "admin-release"
 artifact elasticsearch
 artifact middleware
 artifact redis
-artifact search_node
+artifact search
 artifact screen
 
 docker_base <-- phusion_baseimage

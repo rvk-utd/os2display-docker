@@ -1,26 +1,26 @@
 version: "3.2"
 services:
 
-  admin_nginx:
-    image: os2display/admin-nginx
+  admin-nginx:
+    image: kkos2display/admin-nginx
     ports:
       - 80
-    # We need search_node and middleware to be resolvable before starting.
+    # We need search and middleware to be resolvable before starting.
     volumes:
       - admin-release:/var/www/admin
       - symfony-cache:/var/www/admin/app/cache
       - admin-uploads:/var/www/admin/web/uploads
     depends_on:
       - middleware
-      - search_node
+      - search
       - admin_release
     environment:
       VIRTUAL_HOST: admin.os2display.docker
     networks:
       - backend
 
-  admin_php:
-    image: os2display/admin-php
+  admin-php:
+    image: kkos2display/admin-php
     depends_on:
       - admin_release
     volumes:
@@ -33,26 +33,26 @@ services:
       - backend
 
   admin_release:
-    image: os2display/admin-release
+    image: kkos2display/admin-release
     volumes:
       - admin-release:/var/www/admin
     networks:
       - backend
 
   elasticsearch:
-    image: os2display/elasticsearch
+    image: kkos2display/elasticsearch:1.7.1
     networks:
       - backend
     volumes:
       - es-data:/var/lib/elasticsearch
 
-  search_node:
-    image: os2display/search_node
+  search:
+    image: kkos2display/search:support-non-default-es-host
     ports:
       - 3010
     volumes:
       # Mount in a log-tailer that will output our logs to standard out
-      - './images/search_node/tools/log-stream-service.sh:/etc/my_init.d/99_log-tailer:ro'
+      - './images/search/tools/log-stream-service.sh:/etc/my_init.d/99_log-tailer:ro'
     environment:
       VIRTUAL_HOST: search.os2display.docker
     depends_on:
@@ -61,12 +61,12 @@ services:
       - backend
 
   redis:
-    image: os2display/redis
+    image: kkos2display/redis
     networks:
       - backend
 
   middleware:
-    image: os2display/middleware
+    image: kkos2display/middleware
     ports:
       - 3020
     networks:
@@ -79,7 +79,7 @@ services:
       # Mount in a log-tailer that will output our logs to standard out
       - './images/middleware/tools/log-stream-service.sh:/etc/my_init.d/99_log-tailer:ro'
 
-  admin_db:
+  admin-db:
     image: mariadb:10
     networks:
       - backend
@@ -97,7 +97,7 @@ services:
       - "8025:8025"
 
   screen:
-    image: os2display/screen
+    image: kkos2display/screen
     ports:
       - 80
     environment:
@@ -107,7 +107,7 @@ services:
     # We proxy these so need them to exist.
     depends_on:
       - middleware
-      - search_node
+      - search
 
 networks:
   backend:

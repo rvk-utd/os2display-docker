@@ -1,7 +1,7 @@
 {
   "059d9d9c50e0c45b529407b183b6a02f": {
     "name": "IK3",
-    "backend": "http://admin_nginx",
+    "backend": "http://admin-nginx",
     "expire": 300
   }
 }

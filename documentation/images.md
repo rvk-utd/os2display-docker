@@ -37,7 +37,7 @@ PHP-FPM image ready for hosting the dynamic part of the admin backend.
 Contains a source-release of the OS2Display administration, this is what you 
 normally build prior to doing a prod-release.
 
-### search_node
+### search
 NodeJS app that warps elasticsearch.
 
 ### elasticsearch

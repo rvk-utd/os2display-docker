@@ -15,7 +15,7 @@ app/console fos:user:create admin admin@example.com admin --super-admin || true
 
 # TODO - only do this if the indexes has not already been enabled.
 # Initialize the search index
-JSON_RESULT=$(curl -s "http://search_node:3010/authenticate" -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data @<(cat <<EOF
+JSON_RESULT=$(curl -s "http://search:3010/authenticate" -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data @<(cat <<EOF
 {
    "apikey": "795359dd2c81fa41af67faa2f9adbd32"
   }
@@ -24,11 +24,11 @@ EOF
 
 TOKEN=$(echo $JSON_RESULT|php -r 'echo json_decode(fgets(STDIN))->token;')
 
-curl -s "http://search_node:3010/api/e7df7cd2ca07f4f1ab415d457a6e1c13/activate" -H "Authorization: Bearer $TOKEN" 2>/dev/null
+curl -s "http://search:3010/api/e7df7cd2ca07f4f1ab415d457a6e1c13/activate" -H "Authorization: Bearer $TOKEN" 2>/dev/null
 
 
 # Activate shared indexes
-JSON_RESULT=$(curl -s "http://search_node:3010/authenticate" -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data @<(cat <<EOF
+JSON_RESULT=$(curl -s "http://search:3010/authenticate" -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data @<(cat <<EOF
 {
    "apikey": "88cfd4b277f3f8b6c7c15d7a84784067"
   }
@@ -37,10 +37,10 @@ EOF
 
 TOKEN=$(echo $JSON_RESULT|php -r 'echo json_decode(fgets(STDIN))->token;')
 
-curl "http://search_node:3010/api/bibshare/activate" -H "Authorization: Bearer $TOKEN"
-curl "http://search_node:3010/api/itkdevshare/activate" -H "Authorization: Bearer $TOKEN"
+curl "http://search:3010/api/bibshare/activate" -H "Authorization: Bearer $TOKEN"
+curl "http://search:3010/api/itkdevshare/activate" -H "Authorization: Bearer $TOKEN"
 
-JSON_RESULT=$(curl -s "http://search_node:3010/authenticate" -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data @<(cat <<EOF
+JSON_RESULT=$(curl -s "http://search:3010/authenticate" -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data @<(cat <<EOF
 {
    "apikey": "795359dd2c81fa41af67faa2f9adbd32"
   }
@@ -50,7 +50,7 @@ EOF
 TOKEN=$(echo $JSON_RESULT|php -r 'echo json_decode(fgets(STDIN))->token;')
 
 function initialise_type {
-curl -s "http://search_node:3010/api" -H "Authorization: Bearer $TOKEN" -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data @<(cat <<EOF
+curl -s "http://search:3010/api" -H "Authorization: Bearer $TOKEN" -H "Accept: application/json" -H "Content-Type:application/json" -X POST --data @<(cat <<EOF
 {
       "index":"e7df7cd2ca07f4f1ab415d457a6e1c13",
       "type":"$1",
@@ -64,7 +64,7 @@ curl -s "http://search_node:3010/api" -H "Authorization: Bearer $TOKEN" -H "Acce
 EOF
 )
 
-curl -s "http://search_node:3010/api" -H "Authorization: Bearer $TOKEN" -H "Accept: application/json" -H "Content-Type:application/json" -X DELETE --data @<(cat <<EOF
+curl -s "http://search:3010/api" -H "Authorization: Bearer $TOKEN" -H "Accept: application/json" -H "Content-Type:application/json" -X DELETE --data @<(cat <<EOF
 {
       "index":"e7df7cd2ca07f4f1ab415d457a6e1c13",
       "type":"$1",

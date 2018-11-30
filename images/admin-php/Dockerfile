@@ -1,4 +1,4 @@
-FROM os2display/php-base
+FROM kkos2display/php-base
 
 RUN apt-get install -y --no-install-recommends\
   php5.6-fpm

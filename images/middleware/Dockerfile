@@ -1,4 +1,4 @@
-FROM os2display/docker-base as fetcher
+FROM kkos2display/docker-base as fetcher
 ARG branch=master
 ARG repository=https://github.com/os2display/middleware
 
@@ -8,7 +8,7 @@ RUN apt-get -y --no-install-recommends install git
 RUN git clone --depth=1 --branch=${branch} ${repository} /opt/middleware
 RUN rm -rf /opt/middleware/.git
 
-FROM os2display/node-base
+FROM kkos2display/node-base
 
 COPY --chown=app:app  --from=fetcher /opt/middleware /home/app/middleware
 WORKDIR /home/app/middleware

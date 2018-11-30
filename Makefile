@@ -38,6 +38,9 @@ $(diagrams): documentation/diagrams/%.png : documentation/diagrams/%.plantuml
 build-images: ## Build docker-images.
 	images/build.sh
 
+push-images: ## Push docker-images.
+	images/push.sh
+
 clone-admin: ## Do an initial clone of the admin repo.
 	git clone --branch=kk-develop git@github.com:kkos2/os2display-admin.git development/admin
 
@@ -48,10 +51,10 @@ clone-admin: ## Do an initial clone of the admin repo.
 
 # Fetch and replace updated containers and db-dump images and run composer install.
 _reset-container-state:
-	docker-compose down -v
+	docker-compose down -v --remove-orphans
 	docker-compose up -d
 	sleep 10
-	docker-compose exec admin_php /opt/development/scripts/_docker-init-environment.sh
+	docker-compose exec admin-php /opt/development/scripts/_docker-init-environment.sh
 
 .PHONY: default help reset up stop logs status docs _reset-container-state build-images
 

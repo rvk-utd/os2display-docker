@@ -1,4 +1,4 @@
-FROM os2display/docker-base
+FROM kkos2display/docker-base
 
 RUN apt-get install -y --no-install-recommends nginx
 # Clean out temporary files, notices that you have to a squash to get any gains.
