@@ -28,6 +28,9 @@ spec:
             value: os2display
           - name: MYSQL_PASSWORD
             value: os2display
+        volumeMounts:
+          - name: datadir
+            mountPath: /var/lib/mysql
         livenessProbe:
           exec:
             command: ["sh", "-c", "exec mysqladmin status -uroot -p$MYSQL_ROOT_PASSWORD"]
@@ -47,3 +50,7 @@ spec:
         ports:
         - name: main-port
           containerPort: 3306
+      volumes:
+        - name: datadir
+          persistentVolumeClaim:
+            claimName: datadir-claim

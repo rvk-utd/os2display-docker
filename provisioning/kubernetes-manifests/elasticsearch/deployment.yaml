@@ -22,6 +22,9 @@ spec:
         ports:
         - name: main-port
           containerPort: 9200
+        volumeMounts:
+          - name: esdata
+            mountPath: /var/lib/elasticsearch
         resources:
           readinessProbe:
             httpGet:
@@ -33,3 +36,14 @@ spec:
               path: /_cluster/health?local=true
               port: main-port
             initialDelaySeconds: 20
+      initContainers:
+        - name: fix-permissions
+          image: kkos2display/elasticsearch:1.7.1
+          command: ["sh", "-c", "chown -R elasticsearch:elasticsearch /var/lib/elasticsearch"]
+          volumeMounts:
+            - name: esdata
+              mountPath: /var/lib/elasticsearch
+      volumes:
+        - name: esdata
+          persistentVolumeClaim:
+            claimName: esdata-claim

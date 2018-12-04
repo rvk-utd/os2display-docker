@@ -26,6 +26,8 @@ spec:
         volumeMounts:
         - name: release
           mountPath: /var/www
+        - name: uploads
+          mountPath: /var/www/web/uploads
         ports:
         - name: main-port
           containerPort: 80
@@ -39,6 +41,8 @@ spec:
         - name: php-parameters
           mountPath: /var/www/admin/app/config/parameters.yml
           subPath: parameters.yml
+        - name: uploads
+          mountPath: /var/www/web/uploads
         ports:
         - name: fpm-port
           containerPort: 9000
@@ -60,3 +64,6 @@ spec:
         - name: php-parameters
           configMap:
             name: admin-php-parameters
+        - name: uploads
+          persistentVolumeClaim:
+            claimName: uploads-claim
