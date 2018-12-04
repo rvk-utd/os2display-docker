@@ -53,6 +53,8 @@ run-cron:
 # Differentiate how to run composer depending on whether we have an override.
 	docker-compose -f docker-compose.yml -f docker-compose-cron.yml $(dc_override) run --rm admin-cron
 
+xdebug: ## Start xdebug for the admin-php container.
+	docker-compose exec admin-php xdebug-start
 
 # =============================================================================
 # HELPERS

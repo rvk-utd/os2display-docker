@@ -5,14 +5,6 @@ RUN apt-get install -y --no-install-recommends\
 # Clean out temporary files, notices that you have to a squash to get any gains.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN sed -i '/;date.timezone =/c date.timezone = Europe/Copenhagen' /etc/php/5.6/fpm/php.ini
-RUN sed -i '/;date.timezone =/c date.timezone = Europe/Copenhagen' /etc/php/5.6/fpm/php.ini
-
-RUN sed -i '/upload_max_filesize = 2M/cupload_max_filesize = 256M' /etc/php/5.6/fpm/php.ini
-RUN sed -i '/post_max_size = 8M/cpost_max_size = 300M' /etc/php/5.6/fpm/php.ini
-
-RUN # Set php memory limit to 256mb
-RUN sed -i '/memory_limit = 128M/c memory_limit = 256M' /etc/php/5.6/fpm/php.ini
 
 WORKDIR /var/www/admin
 RUN mkdir /run/php
@@ -23,6 +15,13 @@ COPY start_admin_php.sh /usr/local/sbin/
 COPY run_cron.sh /usr/local/sbin/
 RUN chmod +x /usr/local/sbin/start_admin_php.sh
 RUN chmod +x /usr/local/sbin/run_cron.sh
+
+# Don't enable xdebug pr default.
+COPY files/etc/ /etc/
+COPY files/bin/xdebug-start /usr/local/bin/
+RUN chmod +x /usr/local/bin/xdebug-start
+RUN phpdismod xdebug
+RUN phpenmod os2display-php-settings
 
 RUN mkdir -p web/uploads
 RUN mkdir -p app/cache
