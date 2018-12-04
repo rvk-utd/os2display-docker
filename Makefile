@@ -44,6 +44,16 @@ push-images: ## Push docker-images.
 clone-admin: ## Do an initial clone of the admin repo.
 	git clone --branch=kk-develop git@github.com:kkos2/os2display-admin.git development/admin
 
+ifeq (,$(wildcard ./docker-compose.override.yml))
+    dc_override =
+else
+    dc_override = -f docker-compose.override.yml
+endif
+run-cron:
+# Differentiate how to run composer depending on whether we have an override.
+	docker-compose -f docker-compose.yml -f docker-compose-cron.yml $(dc_override) run --rm admin-cron
+
+
 # =============================================================================
 # HELPERS
 # =============================================================================

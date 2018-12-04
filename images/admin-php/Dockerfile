@@ -20,7 +20,9 @@ RUN mkdir /run/php
 COPY config/www.conf /etc/php/5.6/fpm/pool.d/
 COPY config/php-fpm.conf /etc/php/5.6/fpm/
 COPY start_admin_php.sh /usr/local/sbin/
+COPY run_cron.sh /usr/local/sbin/
 RUN chmod +x /usr/local/sbin/start_admin_php.sh
+RUN chmod +x /usr/local/sbin/run_cron.sh
 
 RUN mkdir -p web/uploads
 RUN mkdir -p app/cache
