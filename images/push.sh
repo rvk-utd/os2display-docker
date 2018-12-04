@@ -6,7 +6,6 @@ docker push kkos2display/php-base:latest
 docker push kkos2display/nginx-base:latest
 docker push kkos2display/admin-nginx:latest
 docker push kkos2display/admin-php:latest
-docker push kkos2display/admin-release:latest
 docker push kkos2display/elasticsearch:1.7.1
 docker push kkos2display/redis:latest
 docker push kkos2display/node-base:latest

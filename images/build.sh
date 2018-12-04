@@ -32,14 +32,6 @@ docker build \
  admin-php
 
 docker build \
- -t kkos2display/admin-release \
- --squash \
- -f admin-release/Dockerfile \
- --build-arg revision=kk-develop \
- --build-arg repository=https://github.com/kkos2/os2display-admin.git \
- admin-release
-
-docker build \
  -t kkos2display/elasticsearch:1.7.1 \
  -f elasticsearch/Dockerfile \
  elasticsearch

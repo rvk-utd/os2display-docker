@@ -38,6 +38,12 @@ $(diagrams): documentation/diagrams/%.png : documentation/diagrams/%.plantuml
 build-images: ## Build docker-images.
 	images/build.sh
 
+build-release: ## Build a release and tag it by TAG
+	images/build-release.sh $(TAG)
+
+push-release: ## Push a release specified by TAG
+	images/push-release.sh $(TAG)
+
 push-images: ## Push docker-images.
 	images/push.sh
 
