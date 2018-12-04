@@ -55,7 +55,7 @@ ifeq (,$(wildcard ./docker-compose.override.yml))
 else
     dc_override = -f docker-compose.override.yml
 endif
-run-cron:
+run-cron: ## Run Cron
 # Differentiate how to run composer depending on whether we have an override.
 	docker-compose -f docker-compose.yml -f docker-compose-cron.yml $(dc_override) run --rm admin-cron
 
