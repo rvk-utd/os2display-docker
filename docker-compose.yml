@@ -93,8 +93,11 @@ services:
 
   mailhog:
     image: mailhog/mailhog
-    ports:
-      - "8025:8025"
+    networks:
+      - backend
+    environment:
+      VIRTUAL_HOST: mail.os2display.docker
+      VIRTUAL_PORT: 8025
 
   screen:
     image: kkos2display/screen
