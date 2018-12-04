@@ -29,6 +29,9 @@ services:
       - symfony-cache:/var/www/admin/app/cache
       - ./development/config/parameters.yml:/var/www/admin/app/config/parameters.yml
       - ./development/scripts:/opt/development/scripts
+    environment:
+      # PHPstorm needs this to work with xdebug.
+      PHP_IDE_CONFIG: "serverName=admin.os2display.docker"
     networks:
       - backend
 
