@@ -14,6 +14,7 @@ RUN rm -rf /var/www/admin/.git
 WORKDIR /var/www/admin
 # TODO - do not run as root
 RUN composer install
+RUN rm -fr /var/www/admin/app/cache/*
 
 FROM busybox
 
