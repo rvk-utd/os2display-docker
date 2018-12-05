@@ -15,7 +15,6 @@ cd "${SCRIPT_DIR}"
 docker build \
  -t "kkos2display/admin-release:${TAG}" \
  --no-cache \
- --squash \
  -f admin-release/Dockerfile \
  --build-arg revision=kk-develop \
  --build-arg repository=https://github.com/kkos2/os2display-admin.git \
