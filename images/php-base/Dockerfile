@@ -1,6 +1,7 @@
 FROM kkos2display/docker-base
 
 # Do a general OS update.
+RUN apt-get update
 RUN apt-get install -y --no-install-recommends\
   php5.6-cli \
   php5.6-xdebug \
