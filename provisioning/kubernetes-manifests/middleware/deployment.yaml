@@ -21,25 +21,28 @@ spec:
         ports:
         - name: main-port
           containerPort: 3020
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/sh", "-c", 'rm -f /home/app/middleware/config.json && ln -s /middleware-config/config.json /home/app/middleware/config.json && rm -f /home/app/middleware/apikeys.json && ln -s /middleware-config/apikeys.json /home/app/middleware/apikeys.json']
         volumeMounts:
           - name: middleware-config
-            mountPath: /home/app/middleware/config.json
-            subPath: config.json
-          - name: middleware-config
-            mountPath: /home/app/middleware/apikeys.json
-            subPath: apikeys.json
+            mountPath:  /middleware-config
       initContainers:
       - name: init-copy-config
         image: kkos2display/middleware:latest
         imagePullPolicy: Always
-        command: ['bash', '-c', '[[ -f /home/app/middleware/config.json ]] || cp initial-config/config.json /home/app/middleware/config.json; [[ -f /home/app/middleware/apikeys.json ]] || cp initial-config/apikeys.json /home/app/middleware/apikeys.json']
+        command: ['bash', '-c', '[[ -f /middleware-config/config.json ]] || cp /initial-config/config.json /middleware-config/config.json; [[ -f /middleware-config/apikeys.json ]] || cp /initial-config/apikeys.json /middleware-config/apikeys.json']
         volumeMounts:
         - name: initial-config-volume
           mountPath: /initial-config
+        - name: middleware-config
+          mountPath: /middleware-config
+
       volumes:
         - name: initial-config-volume
           configMap:
-            name: middleware-config
+            name: middleware-initial-config
         - name: middleware-config
           persistentVolumeClaim:
             claimName: middleware-config-claim

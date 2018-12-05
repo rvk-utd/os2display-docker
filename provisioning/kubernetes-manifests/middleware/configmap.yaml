@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: middleware-config
+  name: middleware-initial-config
 data:
   apikeys.json: |
     {
