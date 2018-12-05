@@ -13,7 +13,9 @@ RUN rm -rf /var/www/admin/.git
 
 WORKDIR /var/www/admin
 # TODO - do not run as root
+RUN cp app/config/parameters.yml.dist app/config/parameters.yml
 RUN composer install
+RUN rm app/config/parameters.yml
 RUN rm -fr /var/www/admin/app/cache/*
 
 FROM busybox
