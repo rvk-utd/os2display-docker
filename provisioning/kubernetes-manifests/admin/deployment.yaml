@@ -49,10 +49,10 @@ spec:
             hostnames:
               - "admin-php"
       initContainers:
-      - name: init
+      - name: init-copy-source
         image: kkos2display/admin-release:build-1
         imagePullPolicy: Always
-        command: ['/opt/kube-init.sh']
+        command: ['/opt/init-copy-source.sh']
         volumeMounts:
         - name: release
           mountPath: /release
