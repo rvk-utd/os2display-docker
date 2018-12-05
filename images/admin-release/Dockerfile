@@ -30,8 +30,8 @@ RUN mkdir -p app/logs
 RUN chown -R www-data:www-data web/uploads app/cache app/logs
 RUN chmod -R g+w web/uploads app/cache app/logs
 
-COPY tools/kube-init.sh /opt/
-RUN chmod +x /opt/kube-init.sh
+COPY tools/init-copy-source.sh /opt/
+RUN chmod +x /opt/init-copy-source.sh
 
 CMD ["/bin/true"]
 
