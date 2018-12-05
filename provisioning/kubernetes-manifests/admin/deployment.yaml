@@ -20,7 +20,6 @@ spec:
             - "admin-php"
       containers:
       - image: kkos2display/admin-nginx
-        // TODO: Should this be IfNotPresent ?
         imagePullPolicy: Always
         name: admin-nginx
         volumeMounts:
@@ -32,7 +31,6 @@ spec:
         - name: main-port
           containerPort: 80
       - image: kkos2display/admin-php
-        // TODO: Should this be IfNotPresent ?
         imagePullPolicy: Always
         name: admin-php
         volumeMounts:

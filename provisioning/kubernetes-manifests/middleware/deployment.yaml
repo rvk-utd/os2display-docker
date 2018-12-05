@@ -16,7 +16,6 @@ spec:
     spec:
       containers:
       - image: kkos2display/middleware:latest
-        // TODO: Should this be IfNotPresent ?
         imagePullPolicy: Always
         name: middleware
         ports:

@@ -16,7 +16,6 @@ spec:
     spec:
       containers:
       - image: kkos2display/elasticsearch:1.7.1
-        // TODO: Should this be IfNotPresent ?
         imagePullPolicy: Always
         name: elasticsearch
         ports:
