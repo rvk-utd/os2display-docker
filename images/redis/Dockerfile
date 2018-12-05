@@ -1,5 +1,6 @@
 FROM kkos2display/docker-base
 
+RUN apt-get update
 RUN apt-get install -y --no-install-recommends redis-server
 
 RUN mkdir /opt/redis

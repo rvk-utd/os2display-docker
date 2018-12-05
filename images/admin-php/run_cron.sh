@@ -9,4 +9,4 @@ if [[ $# -eq 0 ]] ; then
 fi
 
 cd /var/www/admin
-app/console --env="$1" os2display:core:cron
+sudo -u www-data app/console --env="$1" os2display:core:cron

@@ -2,6 +2,7 @@ FROM kkos2display/docker-base as fetcher
 ARG branch=master
 ARG repository=https://github.com/os2display/middleware
 
+RUN apt-get update
 RUN apt-get -y --no-install-recommends install git
 
 # Fetch minimal history
