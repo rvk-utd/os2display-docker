@@ -16,7 +16,7 @@ docker build \
  -t "kkos2display/admin-release:${TAG}" \
  --no-cache \
  -f admin-release/Dockerfile \
- --build-arg revision=kk-develop \
+ --build-arg revision="${TAG}" \
  --build-arg repository=https://github.com/kkos2/os2display-admin.git \
  admin-release
 
