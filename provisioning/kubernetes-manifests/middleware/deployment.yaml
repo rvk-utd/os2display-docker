@@ -22,13 +22,24 @@ spec:
         - name: main-port
           containerPort: 3020
         volumeMounts:
-          - name: config-volume
+          - name: middleware-config
             mountPath: /home/app/middleware/config.json
             subPath: config.json
-          - name: config-volume
+          - name: middleware-config
             mountPath: /home/app/middleware/apikeys.json
             subPath: apikeys.json
+      initContainers:
+      - name: init-copy-config
+        image: kkos2display/middleware:latest
+        imagePullPolicy: Always
+        command: ['bash', '-c', '[[ -f /home/app/middleware/config.json ]] || cp initial-config/config.json /home/app/middleware/config.json; [[ -f /home/app/middleware/apikeys.json ]] || cp initial-config/apikeys.json /home/app/middleware/apikeys.json']
+        volumeMounts:
+        - name: initial-config-volume
+          mountPath: /initial-config
       volumes:
-        - name: config-volume
+        - name: initial-config-volume
           configMap:
             name: middleware-config
+        - name: middleware-config
+          persistentVolumeClaim:
+            claimName: middleware-config-claim
