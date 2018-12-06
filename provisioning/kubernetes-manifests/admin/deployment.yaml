@@ -20,7 +20,6 @@ spec:
             - "admin-php"
       containers:
       - image: kkos2display/admin-nginx
-        // TODO: Should this be IfNotPresent ?
         imagePullPolicy: Always
         name: admin-nginx
         volumeMounts:
@@ -32,7 +31,6 @@ spec:
         - name: main-port
           containerPort: 80
       - image: kkos2display/admin-php
-        // TODO: Should this be IfNotPresent ?
         imagePullPolicy: Always
         name: admin-php
         volumeMounts:
@@ -51,10 +49,10 @@ spec:
             hostnames:
               - "admin-php"
       initContainers:
-      - name: init
+      - name: init-copy-source
         image: kkos2display/admin-release:build-1
         imagePullPolicy: Always
-        command: ['/opt/kube-init.sh']
+        command: ['/opt/init-copy-source.sh']
         volumeMounts:
         - name: release
           mountPath: /release

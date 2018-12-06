@@ -15,6 +15,7 @@ data:
         mailer_transport: smtp
         mailer_host: localhost
         mailer_user: null
+        mailer_port: 25
         mailer_password: null
         mailer_from_email: admin@example.com
         mailer_from_name: Admin

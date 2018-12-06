@@ -16,7 +16,6 @@ spec:
     spec:
       containers:
       - image: mariadb:10
-        // TODO: Should this be IfNotPresent ?
         imagePullPolicy: Always
         name: admin-db
         env:
