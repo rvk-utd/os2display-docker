@@ -6,4 +6,4 @@ RUN apt-get update
 RUN apt-get install -y --no-install-recommends sudo iputils-ping
 # perform a general image upgrade as reccomended by phusion docs.
 RUN apt-get upgrade -y -o Dpkg::Options::="--force-confold"
-
+RUN apt-get install language-pack-da
