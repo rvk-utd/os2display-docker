@@ -50,7 +50,7 @@ spec:
               - "admin-php"
       initContainers:
       - name: init-copy-source
-        image: kkos2display/admin-release:build-1
+        image: kkos2display/admin-release:build-2
         imagePullPolicy: Always
         command: ['/opt/init-copy-source.sh']
         volumeMounts:
