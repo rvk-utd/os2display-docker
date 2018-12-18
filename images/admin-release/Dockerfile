@@ -25,6 +25,10 @@ RUN mkdir -p app/logs
 RUN chown -R www-data:www-data web/uploads app/cache app/logs
 RUN chmod -R g+w web/uploads app/cache app/logs
 
+RUN mkdir /var/www/admin/tools
+# We leave tools un-executable and owned by root for good measure.
+COPY tools/init-environment.sh /var/www/admin/tools
+
 COPY tools/init-copy-source.sh /opt/
 RUN chmod +x /opt/init-copy-source.sh
 
