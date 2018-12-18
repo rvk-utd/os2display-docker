@@ -19,28 +19,43 @@ spec:
           hostnames:
             - "admin-php"
       containers:
-      - image: kkos2display/admin-nginx
+      - image: kkos2display/admin-nginx:0.1
         imagePullPolicy: Always
         name: admin-nginx
         volumeMounts:
+        - name: config
+          mountPath: /etc/nginx/sites-enabled/admin.conf
+          subPath: admin.conf
         - name: release
           mountPath: /var/www
         - name: uploads
-          mountPath: /var/www/web/uploads
+          mountPath: /var/www/admin/web/uploads
         ports:
         - name: main-port
           containerPort: 80
-      - image: kkos2display/admin-php
+      - image: kkos2display/admin-php:0.1
         imagePullPolicy: Always
         name: admin-php
         volumeMounts:
         - name: release
           mountPath: /var/www
-        - name: php-parameters
+        - name: config
           mountPath: /var/www/admin/app/config/parameters.yml
           subPath: parameters.yml
         - name: uploads
-          mountPath: /var/www/web/uploads
+          mountPath: /var/www/admin/web/uploads
+      - image: kkos2display/admin-php:0.1
+        imagePullPolicy: Always
+        name: admin-cron
+        command: ['/sbin/my_init']        
+        volumeMounts:
+        - name: release
+          mountPath: /var/www
+        - name: config
+          mountPath: /var/www/admin/app/config/parameters.yml
+          subPath: parameters.yml
+        - name: uploads
+          mountPath: /var/www/admin/web/uploads
         ports:
         - name: fpm-port
           containerPort: 9000
@@ -52,16 +67,18 @@ spec:
       - name: init-copy-source
         image: kkos2display/admin-release:build-2
         imagePullPolicy: Always
-        command: ['/opt/init-copy-source.sh']
+        command: ['sh', '-c', '/opt/init-copy-source.sh; test -d /uploads/media || mkdir /uploads/media; chown -R www-data:www-data /uploads']
         volumeMounts:
         - name: release
           mountPath: /release
+        - name: uploads
+          mountPath: /uploads
       volumes:
         - name: release
           emptyDir: {}
-        - name: php-parameters
+        - name: config
           configMap:
-            name: admin-php-parameters
+            name: admin-config
         - name: uploads
           persistentVolumeClaim:
             claimName: uploads-claim

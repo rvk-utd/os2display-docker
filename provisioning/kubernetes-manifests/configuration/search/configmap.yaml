@@ -5,20 +5,11 @@ metadata:
 data:
   apikeys.json: |
     {
-      "795359dd2c81fa41af67faa2f9adbd32": {
-        "name": "IK3",
+      "<insert-search-api-key-here>": {
+        "name": "AdminSearchIndex",
         "expire": 300,
         "indexes": [
-          "e7df7cd2ca07f4f1ab415d457a6e1c13"
-        ],
-        "access": "rw"
-      },
-      "88cfd4b277f3f8b6c7c15d7a84784067": {
-        "name": "Share",
-        "expire": 300,
-        "indexes": [
-          "itkdevshare",
-          "bibshare"
+          "<insert-search-index-id-here>"
         ],
         "access": "rw"
       }
@@ -26,10 +17,10 @@ data:
   config.json: |
     {
       "port": 3010,
-      "secret": "MySuperSecret",
+      "secret": "<insert-secret-here>",
       "admin": {
-        "username": "admin",
-        "password": "admin"
+        "username": "<insert-admin-username-here>",
+        "password": "<insert-admin-password-here>"
       },
       "logs": {
         "all": "logs/messages.log",
@@ -47,38 +38,8 @@ data:
     }
   mappings.json: |
     {
-      "e7df7cd2ca07f4f1ab415d457a6e1c13": {
-        "name": "IK3",
-        "tag": "private",
-        "fields": [
-          {
-            "field": "title",
-            "type": "string",
-            "language": "da",
-            "country": "DK",
-            "default_analyzer": "string_index",
-            "default_indexer": "analyzed",
-            "sort": true,
-            "indexable": true,
-            "raw": false
-          },
-          {
-            "type": "string",
-            "country": "DK",
-            "language": "da",
-            "default_analyzer": "string_index",
-            "default_indexer": "analyzed",
-            "sort": true,
-            "indexable": true,
-            "raw": false,
-            "geopoint": false,
-            "field": "name"
-          }
-        ],
-        "dates": [ "created_at", "updated_at" ]
-      },
-      "88cfd4b277f3f8b6c7c15d7a84784067": {
-        "name": "Share",
+      "<insert-search-index-id-here>": {
+        "name": "AdminSearchIndex",
         "tag": "private",
         "fields": [
           {

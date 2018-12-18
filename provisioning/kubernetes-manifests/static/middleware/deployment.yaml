@@ -15,7 +15,7 @@ spec:
         app: middleware
     spec:
       containers:
-      - image: kkos2display/middleware:latest
+      - image: kkos2display/middleware:5.0.2
         imagePullPolicy: Always
         name: middleware
         ports:
@@ -30,7 +30,7 @@ spec:
             mountPath:  /middleware-config
       initContainers:
       - name: init-copy-config
-        image: kkos2display/middleware:latest
+        image: kkos2display/middleware:5.0.2
         imagePullPolicy: Always
         command: ['bash', '-c', '[[ -f /middleware-config/config.json ]] || cp /initial-config/config.json /middleware-config/config.json; [[ -f /middleware-config/apikeys.json ]] || cp /initial-config/apikeys.json /middleware-config/apikeys.json']
         volumeMounts:

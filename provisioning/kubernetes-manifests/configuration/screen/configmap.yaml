@@ -17,10 +17,10 @@ data:
         "server": "https://screen.os2displaykff.reload.dk/"
       },
       // API key to use.
-      "apikey": "059d9d9c50e0c45b529407b183b6a02f",
+      "apikey": "<insert-middlware-apikey-here>",
       // If cookie is secure it's only send over https.
       "cookie": {
-        "secure": false
+        "secure": true
       },
       // Display debug messages.
       "debug": false,

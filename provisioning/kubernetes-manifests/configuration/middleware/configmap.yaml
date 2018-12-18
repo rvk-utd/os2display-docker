@@ -5,8 +5,8 @@ metadata:
 data:
   apikeys.json: |
     {
-      "059d9d9c50e0c45b529407b183b6a02f": {
-        "name": "IK3",
+      "<insert-middleware-apikey-here>": {
+        "name": "AdminMiddleware",
         "backend": "http://admin",
         "expire": 300
       }
@@ -14,7 +14,7 @@ data:
   config.json: |
     {
       "port": 3020,
-      "secret": "MySuperSecret",
+      "secret": "<insert-secret-here>",
       "logs": {
         "all": "logs/messages.log",
         "info": "logs/info.log",
@@ -25,7 +25,7 @@ data:
       },
       "admin": {
         "username": "admin",
-        "password": "admin"
+        "password": "<insert-admin-password-here>"
       },
       "cache": {
         "port": "6379",
