@@ -31,5 +31,9 @@ RUN chown -R www-data:www-data web/uploads app/cache app/logs
 RUN chmod -R g+w web/uploads app/cache app/logs
 
 USER root
+
+ENV ENV=prod
+# Default to starting up fpm-hosting. If this is a cron-run override the entrypoint
+# and run /sbin/my_init.
 CMD ["/sbin/my_init", "--skip-runit", "/usr/local/sbin/start_admin_php.sh"]
 EXPOSE 9000

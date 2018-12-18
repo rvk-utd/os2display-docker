@@ -2,7 +2,7 @@ version: "3.2"
 services:
 
   admin-nginx:
-    image: kkos2display/admin-nginx
+    image: kkos2display/admin-nginx:0.1
     ports:
       - 80
     # We need search and middleware to be resolvable before starting.
@@ -20,7 +20,7 @@ services:
       - backend
 
   admin-php:
-    image: kkos2display/admin-php
+    image: kkos2display/admin-php:0.1
     depends_on:
       - admin_release
     volumes:
@@ -35,8 +35,25 @@ services:
     networks:
       - backend
 
+  admin-cron:
+    image: kkos2display/admin-php:0.1
+    depends_on:
+      - admin_release
+    volumes:
+      - admin-release:/var/www/admin
+      - admin-uploads:/var/www/admin/web/uploads
+      - symfony-cache:/var/www/admin/app/cache
+      - ./development/config/parameters.yml:/var/www/admin/app/config/parameters.yml
+      - ./development/scripts:/opt/development/scripts
+    environment:
+      # The crontab picks this up and passes it to Symfony.
+      ENV: "dev"
+    networks:
+      - backend
+    entrypoint: /sbin/my_init
+
   admin_release:
-    image: kkos2display/admin-release
+    image: kkos2display/admin-release:latest
     volumes:
       - admin-release:/var/www/admin
     networks:
@@ -50,7 +67,7 @@ services:
       - es-data:/var/lib/elasticsearch
 
   search:
-    image: kkos2display/search:support-non-default-es-host
+    image: kkos2display/search:2.1.10-kkpatch-1
     ports:
       - 3010
     volumes:
@@ -64,7 +81,7 @@ services:
       - backend
 
   redis:
-    image: kkos2display/redis
+    image: kkos2display/redis:4.0.9
     networks:
       - backend
 
@@ -83,7 +100,7 @@ services:
       - './images/middleware/tools/log-stream-service.sh:/etc/my_init.d/99_log-tailer:ro'
 
   admin-db:
-    image: mariadb:10
+    image: mariadb:10.3
     networks:
       - backend
     environment:
@@ -103,7 +120,7 @@ services:
       VIRTUAL_PORT: 8025
 
   screen:
-    image: kkos2display/screen
+    image: kkos2display/screen:5.0.3
     ports:
       - 80
     environment:
