@@ -3,11 +3,6 @@ FROM kkos2display/php-base as fetcher
 ARG revision=master
 ARG repository=https://github.com/os2display/admin.git
 
-RUN apt-get update
-RUN apt-get -y --no-install-recommends install git
-RUN rm -rf /var/lib/apt/lists/*
-
-
 # Fetch minimal history
 RUN git clone --depth=1 --branch=${revision} ${repository} /var/www/admin
 RUN rm -rf /var/www/admin/.git

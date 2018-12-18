@@ -1,14 +1,7 @@
-
-RUN apt-get update
-RUN apt-get install -y --no-install-recommends\
-  php5.6-fpm
-# Clean out temporary files, notices that you have to a squash to get any gains.
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
 FROM kkos2display/admin-php:0.1
 
 WORKDIR /var/www/admin
-RUN mkdir /run/php
+RUN test -d /run/php || mkdir /run/php
 
 COPY config/www.conf /etc/php/5.6/fpm/pool.d/
 COPY config/php-fpm.conf /etc/php/5.6/fpm/
