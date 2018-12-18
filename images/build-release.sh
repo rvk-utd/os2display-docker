@@ -14,6 +14,7 @@ TAG=$1
 cd "${SCRIPT_DIR}"
 docker build \
  -t "kkos2display/admin-release:${TAG}" \
+ -t "kkos2display/admin-release:latest" \
  --no-cache \
  -f admin-release/Dockerfile \
  --build-arg revision="${TAG}" \

@@ -1,12 +1,12 @@
 FROM kkos2display/docker-base as fetcher
-ARG branch=master
+ARG revision=5.0.2
 ARG repository=https://github.com/os2display/middleware
 
 RUN apt-get update
 RUN apt-get -y --no-install-recommends install git
 
 # Fetch minimal history
-RUN git clone --depth=1 --branch=${branch} ${repository} /opt/middleware
+RUN git clone --depth=1 --branch=${revision} ${repository} /opt/middleware
 RUN rm -rf /opt/middleware/.git
 
 FROM kkos2display/node-base

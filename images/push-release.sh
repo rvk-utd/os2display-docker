@@ -8,4 +8,5 @@ fi
 
 TAG=$1
 set -x
-docker push "kkos2display/admin-release:${TAG}"
+docker push "kkos2display/admin-release:${TAG}" 
+docker push "kkos2display/admin-release:latest" 

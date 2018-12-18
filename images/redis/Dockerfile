@@ -1,7 +1,7 @@
 FROM kkos2display/docker-base
 
 RUN apt-get update
-RUN apt-get install -y --no-install-recommends redis-server
+RUN apt-get install -y --no-install-recommends redis=5:4.0.9\*
 
 RUN mkdir /opt/redis
 COPY start_redis.sh /opt/redis

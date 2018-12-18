@@ -1,14 +1,19 @@
 #!/usr/bin/env bash
 set -exuo pipefail
 
-docker push kkos2display/docker-base:latest
-docker push kkos2display/php-base:latest
-docker push kkos2display/nginx-base:latest
-docker push kkos2display/admin-nginx:latest
-docker push kkos2display/admin-php:latest
-docker push kkos2display/elasticsearch:1.7.1
-docker push kkos2display/redis:latest
-docker push kkos2display/node-base:latest
-docker push kkos2display/search:support-non-default-es-host
-docker push kkos2display/middleware:latest
-docker push kkos2display/screen:latest
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd "${SCRIPT_DIR}"
+source "_versions.source"
+
+docker push "kkos2display/docker-base:${DOCKER_BASE_TAG}"
+docker push "kkos2display/php-base:${PHP_BASE_TAG}"
+docker push "kkos2display/nginx-base:${NGINX_BASE_TAG}"
+docker push "kkos2display/admin-nginx:${ADMIN_NGINX_TAG}"
+docker push "kkos2display/admin-php:${ADMIN_PHP_TAG}"
+docker push "kkos2display/elasticsearch:${ELASICSEARCH_TAG}"
+docker push "kkos2display/redis:${REDIS_TAG}"
+docker push "kkos2display/node-base:${NODE_BASE_TAG}"
+docker push "kkos2display/search:${SEARCH_TAG}"
+docker push "kkos2display/middleware:${MIDDLEWARE_TAG}"
+docker push "kkos2display/screen:${SCREEN_TAG}"
+

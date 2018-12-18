@@ -1,4 +1,3 @@
-FROM kkos2display/php-base
 
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends\
@@ -6,6 +5,7 @@ RUN apt-get install -y --no-install-recommends\
 # Clean out temporary files, notices that you have to a squash to get any gains.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+FROM kkos2display/admin-php:0.1
 
 WORKDIR /var/www/admin
 RUN mkdir /run/php
