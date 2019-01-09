@@ -20,7 +20,7 @@ services:
       - backend
 
   admin-php:
-    image: kkos2display/admin-php:0.1
+    image: kkos2display/admin-php:0.2
     depends_on:
       - admin_release
     volumes:
@@ -36,7 +36,7 @@ services:
       - backend
 
   admin-cron:
-    image: kkos2display/admin-php:0.1
+    image: kkos2display/admin-php:0.2
     depends_on:
       - admin_release
     volumes:
@@ -44,6 +44,7 @@ services:
       - admin-uploads:/var/www/admin/web/uploads
       - symfony-cache:/var/www/admin/app/cache
       - ./development/config/parameters.yml:/var/www/admin/app/config/parameters.yml
+      - ./development/config/os2display-cron:/etc/cron.d/os2display-cron
       - ./development/scripts:/opt/development/scripts
     environment:
       # The crontab picks this up and passes it to Symfony.

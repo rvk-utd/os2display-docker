@@ -11,7 +11,7 @@ NODE_BASE_TAG=latest
 # configuration-changes and general software updates
 ADMIN_NGINX_TAG=0.1
 # TODO - the admin-cron image references this version, so remember to bump it.
-ADMIN_PHP_TAG=0.1
+ADMIN_PHP_TAG=0.2
 
 # Core os2display projects, the tags follow the version projects.
 MIDDLEWARE_TAG=5.0.2

@@ -33,7 +33,7 @@ spec:
         ports:
         - name: main-port
           containerPort: 80
-      - image: kkos2display/admin-php:0.1
+      - image: kkos2display/admin-php:0.2
         imagePullPolicy: Always
         name: admin-php
         volumeMounts:
@@ -44,7 +44,7 @@ spec:
           subPath: parameters.yml
         - name: uploads
           mountPath: /var/www/admin/web/uploads
-      - image: kkos2display/admin-php:0.1
+      - image: kkos2display/admin-php:0.2
         imagePullPolicy: Always
         name: admin-cron
         command: ['/sbin/my_init']        
@@ -65,7 +65,7 @@ spec:
               - "admin-php"
       initContainers:
       - name: init-copy-source
-        image: kkos2display/admin-release:build-2
+        image: kkos2display/admin-release:build-3
         imagePullPolicy: Always
         command: ['sh', '-c', '/opt/init-copy-source.sh; test -d /uploads/media || mkdir /uploads/media; chown -R www-data:www-data /uploads']
         volumeMounts:

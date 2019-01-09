@@ -1,4 +1,7 @@
-FROM kkos2display/admin-php:0.1
+FROM kkos2display/php-base:latest
+
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends php5.6-fpm
 
 WORKDIR /var/www/admin
 RUN test -d /run/php || mkdir /run/php
