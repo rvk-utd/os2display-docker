@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 
 KKOS_IMAGE_REPOSITORY=kkos2display
+#MAIN_BASE_IMAGE=gcr.io/gcp-runtimes/ubuntu_18_0_4:latest
 MAIN_BASE_IMAGE=gcr.io/gcp-runtimes/ubuntu_18_0_4:latest
+
+# Repository that contains the code-base we build releases from.
+ADMIN_REPOSITORY=https://github.com/kkos2/os2display-admin.git
 
 # Our base-images, we currenty have no policy for when to bump these versions.
 # As they are responsible for doing apt-get update we'll always want the latest.

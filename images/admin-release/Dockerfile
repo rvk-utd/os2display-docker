@@ -9,6 +9,10 @@ ARG repository=https://github.com/os2display/admin.git
 RUN git clone --depth=1 --branch=${revision} ${repository} /var/www/admin
 RUN rm -rf /var/www/admin/.git
 
+RUN echo "Build time: $(date -u)" > /var/www/admin/.release && \
+    echo "Repository: ${repository}" >> /var/www/admin/.release && \
+    echo "Revision: ${revision}" >> /var/www/admin/.release
+
 WORKDIR /var/www/admin
 # TODO - do not run as root
 RUN cp app/config/parameters.yml.dist app/config/parameters.yml
