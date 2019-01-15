@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+KKOS_IMAGE_REPOSITORY=kkos2display
+MAIN_BASE_IMAGE=gcr.io/gcp-runtimes/ubuntu_18_0_4:latest
+
 # Our base-images, we currenty have no policy for when to bump these versions.
 # As they are responsible for doing apt-get update we'll always want the latest.
 DOCKER_BASE_TAG=latest

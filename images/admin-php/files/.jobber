@@ -1,0 +1,23 @@
+version: 1.4
+
+prefs:
+    logPath: /dev/null
+
+resultSinks:
+    - &stdout
+        type: stdout
+        data: [stdout, stderr]  # stdout, stderr
+
+jobs:
+    os2display:
+      cmd: /usr/local/bin/run_os2display_cron.sh
+      # Run every minute
+      time: 0
+      # Keep trying
+      onError: Continue
+      notifyOnError:
+          - *stdout
+      notifyOnSuccess:
+          - *stdout
+      notifyOnFailure:
+          - *stdout

@@ -1,4 +1,6 @@
-FROM kkos2display/docker-base
+ARG os2display_image_repository=os2display
+
+FROM ${os2display_image_repository}/docker-base
 
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends nginx
@@ -11,4 +13,4 @@ RUN unlink /etc/nginx/sites-enabled/default
 COPY start_nginx.sh /usr/local/sbin/
 
 EXPOSE 80
-CMD ["/sbin/my_init", "--skip-runit", "/usr/local/sbin/start_nginx.sh"]
+CMD ["/usr/local/sbin/start_nginx.sh"]

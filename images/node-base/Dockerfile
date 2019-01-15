@@ -1,4 +1,6 @@
-FROM kkos2display/docker-base
+ARG os2display_image_repository=os2display
+
+FROM ${os2display_image_repository}/docker-base
 
 ## Create a user for the web app.
 RUN addgroup --gid 9999 app

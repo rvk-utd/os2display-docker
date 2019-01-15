@@ -1,8 +1,25 @@
-FROM phusion/baseimage:0.11
+ARG base_image=ubuntu:18.04
+
+FROM ${base_image}
+ENV DEBIAN_FRONTEND noninteractive
 
 # Do a general OS update.
-RUN LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php
-RUN apt-get update
-RUN apt-get install -y --no-install-recommends sudo iputils-ping language-pack-da
-# perform a general image upgrade as reccomended by phusion docs.
-RUN apt-get upgrade -y -o Dpkg::Options::="--force-confold"
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+      curl \
+      ca-certificates \
+      gosu \
+      iputils-ping \
+      language-pack-da \
+    && \
+    apt-get clean && \
+    rm -rf \
+      /var/lib/apt/lists/* \
+      /tmp/* \
+      /var/tmp/*
+
+# Add Tini
+ENV TINI_VERSION v0.18.0
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
+RUN chmod +x /tini
+ENTRYPOINT ["/tini", "--"]

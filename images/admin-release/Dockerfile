@@ -1,5 +1,7 @@
+ARG os2display_image_repository=os2display
+
 # Source release and init container.
-FROM kkos2display/php-base as fetcher
+FROM ${os2display_image_repository}/php-base as fetcher
 ARG revision=master
 ARG repository=https://github.com/os2display/admin.git
 
@@ -14,6 +16,7 @@ RUN composer install
 RUN rm app/config/parameters.yml
 RUN rm -fr /var/www/admin/app/cache/*
 
+# Make the release-image as small as possible.
 FROM busybox
 
 RUN mkdir -p /var/www

@@ -1,4 +1,0 @@
-ENV=prod
-# every minute of every day for the rest of your life, run this script as the
-# `app` user.
-* * * * * root /usr/local/sbin/run_cron.sh $ENV

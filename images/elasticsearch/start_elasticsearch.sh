@@ -1,7 +1,7 @@
 #!/bin/sh
-# `/sbin/setuser memcache` runs the given command as the user `memcache`.
+# `gosu memcache` runs the given command as the user `memcache`.
 # If you omit that part, the command will be run as root.
-exec /sbin/setuser elasticsearch /usr/share/elasticsearch/bin/elasticsearch \
+exec gosu elasticsearch /usr/share/elasticsearch/bin/elasticsearch \
     -Des.pidfile=/var/run/elasticsearch/elasticsearch.pid \
     -Des.default.path.home=/usr/share/elasticsearch \
     -Des.default.path.logs=/var/log/elasticsearch \

@@ -39,10 +39,10 @@ ADMIN_PASS="$3"
 SEARCH_APIKEY="$4"
 ADMIN_SEARCH_INDEX_ID="$5"
 
-sudo -u www-data app/console doctrine:migrations:migrate --no-interaction
-sudo -u www-data app/console os2display:core:templates:load
-sudo -u www-data app/console doctrine:query:sql "UPDATE ik_screen_templates SET enabled=1;"
-sudo -u www-data app/console doctrine:query:sql "UPDATE ik_slide_templates SET enabled=1;"
+gosu www-data app/console doctrine:migrations:migrate --no-interaction
+gosu www-data app/console os2display:core:templates:load
+gosu www-data app/console doctrine:query:sql "UPDATE ik_screen_templates SET enabled=1;"
+gosu www-data app/console doctrine:query:sql "UPDATE ik_slide_templates SET enabled=1;"
 
 app/console fos:user:create "${ADMIN_USER}" "${ADMIN_EMAIL}" "${ADMIN_PASS}" --super-admin || true
 

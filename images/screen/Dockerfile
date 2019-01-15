@@ -1,4 +1,6 @@
-FROM kkos2display/php-base as fetcher
+ARG os2display_image_repository=os2display
+
+FROM ${os2display_image_repository}/php-base as fetcher
 ARG branch=master
 ARG repository=https://github.com/os2display/screen.git
 
@@ -11,7 +13,7 @@ RUN rm -rf /var/www/screen/.git
 
 WORKDIR /var/www/screen
 
-FROM kkos2display/nginx-base
+FROM ${os2display_image_repository}/nginx-base
 
 WORKDIR /var/www/screen
 

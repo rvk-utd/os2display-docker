@@ -1,19 +1,31 @@
-FROM kkos2display/docker-base
+ARG os2display_image_repository=os2display
 
-# Do a general OS update.
-RUN apt-get update
-RUN apt-get install -y --no-install-recommends\
-  php5.6-cli \
-  php5.6-xdebug \
-  php5.6-mysql \
-  php5.6-curl \
-  php5.6-mbstring \
-  php5.6-mcrypt \
-  php5.6-gd \
-  php5.6-xml \
-  php5.6-zip \
-  imagemagick \
-  git
+FROM ${os2display_image_repository}/docker-base
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends software-properties-common && \
+    LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
+      php5.6-cli \
+      php5.6-xdebug \
+      php5.6-mysql \
+      php5.6-curl \
+      php5.6-mbstring \
+      php5.6-mcrypt \
+      php5.6-gd \
+      php5.6-xml \
+      php5.6-zip \
+      imagemagick \
+      git \
+    && \
+    # No plans on adding any other repos.
+    apt-get autoremove --purge -y software-properties-common && \
+    apt-get clean && \
+    rm -rf \
+      /var/lib/apt/lists/* \
+      /tmp/* \
+      /var/tmp/*
 
 # Install composer 1.6.5  using the latest installer.
 # We compare the downloaded installer with a hash from a second source to reduce

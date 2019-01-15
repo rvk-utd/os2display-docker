@@ -1,2 +1,2 @@
 #!/bin/sh
-exec /sbin/setuser redis /usr/bin/redis-server /opt/redis/redis.conf
+exec gosu redis /usr/bin/redis-server /opt/redis/redis.conf
