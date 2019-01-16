@@ -7,10 +7,10 @@ normal=$(tput sgr0)
 cd /var/www/admin
 composer install
 chown -R www-data:www-data app/cache app/logs
-sudo -u www-data app/console doctrine:migrations:migrate --no-interaction
-sudo -u www-data app/console os2display:core:templates:load
-sudo -u www-data app/console doctrine:query:sql "UPDATE ik_screen_templates SET enabled=1;"
-sudo -u www-data app/console doctrine:query:sql "UPDATE ik_slide_templates SET enabled=1;"
+gosu www-data app/console doctrine:migrations:migrate --no-interaction
+gosu www-data app/console os2display:core:templates:load
+gosu www-data app/console doctrine:query:sql "UPDATE ik_screen_templates SET enabled=1;"
+gosu www-data app/console doctrine:query:sql "UPDATE ik_slide_templates SET enabled=1;"
 app/console fos:user:create admin admin@example.com admin --super-admin || true
 
 # TODO - only do this if the indexes has not already been enabled.
