@@ -7,14 +7,14 @@ metadata:
     certmanager.k8s.io/issuer: letsencrypt-prod
 spec:
   rules:
-  - host: screen.os2displaykff.reload.dk
-    http:
-      paths:
-        - backend:
-            serviceName: screen
-            servicePort: main-port
-          path: /
+    - host: screen.kkos2display.dk
+      http:
+        paths:
+          - backend:
+              serviceName: screen
+              servicePort: main-port
+            path: /
   tls:
-  - hosts:
-    - screen.os2displaykff.reload.dk
-    secretName: screen-ingress-cert # cert-manager will populate this.
+    - hosts:
+        - screen.kkos2display.dk
+      secretName: screen-ingress-cert # cert-manager will populate this.

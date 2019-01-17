@@ -8,14 +8,14 @@ metadata:
     certmanager.k8s.io/issuer: letsencrypt-prod
 spec:
   rules:
-  - host: admin.os2displaykff.reload.dk
-    http:
-      paths:
-        - backend:
-            serviceName: admin
-            servicePort: main-port
-          path: /
+    - host: admin.kkos2display.dk
+      http:
+        paths:
+          - backend:
+              serviceName: admin
+              servicePort: main-port
+            path: /
   tls:
-  - hosts:
-    - admin.os2displaykff.reload.dk
-    secretName: admin-ingress-cert # cert-manager will populate this.
+    - hosts:
+        - admin.kkos2display.dk
+      secretName: admin-ingress-cert # cert-manager will populate this.

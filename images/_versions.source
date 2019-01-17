@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 KKOS_IMAGE_REPOSITORY=kkos2display
-#MAIN_BASE_IMAGE=gcr.io/gcp-runtimes/ubuntu_18_0_4:latest
 MAIN_BASE_IMAGE=gcr.io/gcp-runtimes/ubuntu_18_0_4:latest
 
 # Repository that contains the code-base we build releases from.
@@ -15,16 +14,26 @@ NGINX_BASE_TAG=latest
 NODE_BASE_TAG=latest
 
 # Support images that does not contain any project-code, thus we track eg. 
-# configuration-changes and general software updates
-ADMIN_NGINX_TAG=0.1
+# configuration-changes and general software updates via a "build" tag.
+ADMIN_NGINX_BUILD_TAG=0.3
 # TODO - the admin-cron image references this version, so remember to bump it.
-ADMIN_PHP_TAG=0.2
+ADMIN_PHP_BUILD_TAG=0.3
 
 # Core os2display projects, the tags follow the version projects.
-MIDDLEWARE_TAG=5.0.2
-SCREEN_TAG=5.0.3
+# We still add a "build" tag to have something to increment if a change is made
+# in the image itself (eg. general software update).
+MIDDLEWARE_SOURCE_TAG=5.0.2
+MIDDLEWARE_BUILD_TAG=0.3
+
+SCREEN_SOURCE_TAG=5.0.3
+SCREEN_BUILD_TAG=0.3
 
 # 3rd party projects, we track their versions.
-SEARCH_TAG=2.1.10-kkpatch-1
-ELASICSEARCH_TAG=1.7.1
-REDIS_TAG=4.0.9
+SEARCH_SOURCE_TAG=2.1.10-kkpatch-1
+SEARCH_BUILD_TAG=0.3
+
+ELASICSEARCH_SOURCE_TAG=1.7.1
+ELASICSEARCH_BUILD_TAG=0.3
+
+REDIS_SOURCE_TAG=4.0.9
+REDIS_BUILD_TAG=0.3

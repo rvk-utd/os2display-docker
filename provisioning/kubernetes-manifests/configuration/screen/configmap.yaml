@@ -9,12 +9,12 @@ data:
     window.config = {
       // Used to activate screen (rest API) and load resources.
       "resource": {
-        "server": "//screen.os2displaykff.reload.dk/",
+        "server": "//screen.kkos2display.dk/",
         "uri": 'proxy'
       },
       // Used by web-socket.
       "ws": {
-        "server": "https://screen.os2displaykff.reload.dk/"
+        "server": "https://screen.kkos2display.dk/"
       },
       // API key to use.
       "apikey": "<insert-middlware-apikey-here>",

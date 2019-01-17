@@ -47,7 +47,7 @@ spec:
       - image: kkos2display/admin-php:0.2
         imagePullPolicy: Always
         name: admin-cron
-        command: ['/sbin/my_init']        
+        command: ['/usr/local/bin/jobber-entrypoint.sh']
         volumeMounts:
         - name: release
           mountPath: /var/www

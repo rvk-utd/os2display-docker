@@ -57,7 +57,7 @@ else
 endif
 run-cron: ## Run Cron
 # Differentiate how to run composer depending on whether we have an override.
-	docker-compose -f docker-compose.yml -f docker-compose-cron.yml $(dc_override) run --rm admin-cron
+	docker-compose -f docker-compose.yml $(dc_override) run --rm admin-cron run_os2display_cron.sh
 
 xdebug: ## Start xdebug for the admin-php container.
 	docker-compose exec admin-php xdebug-start

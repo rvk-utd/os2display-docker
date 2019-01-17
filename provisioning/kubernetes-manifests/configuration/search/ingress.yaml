@@ -7,14 +7,14 @@ metadata:
     certmanager.k8s.io/issuer: letsencrypt-prod
 spec:
   rules:
-  - host: search.os2displaykff.reload.dk
-    http:
-      paths:
-        - backend:
-            serviceName: search
-            servicePort: main-port
-          path: /
+    - host: search.kkos2display.dk
+      http:
+        paths:
+          - backend:
+              serviceName: search
+              servicePort: main-port
+            path: /
   tls:
-  - hosts:
-    - search.os2displaykff.reload.dk
-    secretName: search-ingress-cert # cert-manager will populate this.
+    - hosts:
+        - search.kkos2display.dk
+      secretName: search-ingress-cert # cert-manager will populate this.
