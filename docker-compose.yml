@@ -146,4 +146,8 @@ volumes:
   admin-uploads:
   symfony-cache:
   admin-release:
+    driver_opts:
+      type: none
+      device: $PWD/development
+      o: bind
 
