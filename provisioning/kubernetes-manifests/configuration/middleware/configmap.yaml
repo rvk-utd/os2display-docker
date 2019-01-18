@@ -5,7 +5,7 @@ metadata:
 data:
   apikeys.json: |
     {
-      "<insert-middleware-apikey-here>": {
+      "uu0aidoh2upujiefiquai0johrai0ahso0Gae0ae": {
         "name": "AdminMiddleware",
         "backend": "http://admin",
         "expire": 300
@@ -14,7 +14,7 @@ data:
   config.json: |
     {
       "port": 3020,
-      "secret": "<insert-secret-here>",
+      "secret": "ochePhah6aiteingahi3Aeteceepieruumu1oogh",
       "logs": {
         "all": "logs/messages.log",
         "info": "logs/info.log",
@@ -24,8 +24,8 @@ data:
         "socket": "logs/socket.log"
       },
       "admin": {
-        "username": "admin",
-        "password": "<insert-admin-password-here>"
+        "username": "bbsadmin",
+        "password": "Eegaith3xu"
       },
       "cache": {
         "port": "6379",

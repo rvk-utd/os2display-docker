@@ -7,7 +7,7 @@ spec:
     # The ACME server URL
     server: https://acme-v02.api.letsencrypt.org/directory
     # Email address used for ACME registration
-    email: security+os2displaykff-letsencrypt@reload.dk
+    email: security+os2display-bbs-letsencrypt@reload.dk
     # Name of a secret used to store the ACME account private key
     privateKeySecretRef:
       name: letsencrypt-prod

@@ -13,8 +13,8 @@ gcloud services enable compute.googleapis.com --project=$PROJECT_ID
 gcloud services enable sql-component.googleapis.com --project=$PROJECT_ID
 
 # Ingress IP
-#gcloud compute addresses create $ADDRESS_NAME --region=$REGION --project=$PROJECT_ID --region=$REGION
-#gcloud compute addresses describe $ADDRESS_NAME --region $REGION --project=$PROJECT_ID --region=$REGION
+gcloud compute addresses create $ADDRESS_NAME --region=$REGION --project=$PROJECT_ID --region=$REGION
+gcloud compute addresses describe $ADDRESS_NAME --region $REGION --project=$PROJECT_ID --region=$REGION
 
 # Provision machines
 gcloud container clusters create $CLUSTER_NAME \
