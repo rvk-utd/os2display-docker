@@ -104,7 +104,7 @@ services:
       - './images/middleware/tools/log-stream-service.sh:/etc/my_init.d/99_log-tailer:ro'
 
   screen:
-    image: eu.gcr.io/os2display-bbs/os2display-bbs/screen:5.0.3-bbs-0.0.1
+    image: eu.gcr.io/os2display-bbs/os2display-bbs/screen:5.0.3-bbs-0.0.2
     ports:
       - 80
     environment:
