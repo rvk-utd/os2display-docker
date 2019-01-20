@@ -12,4 +12,3 @@ source "_versions.source"
 TAG=$1
 set -x
 docker push "${MAIN_IMAGE_REPOSITORY}/admin-release:${TAG}"
-docker push "${MAIN_IMAGE_REPOSITORY}/admin-release:latest"

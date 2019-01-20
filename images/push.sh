@@ -5,6 +5,7 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "${SCRIPT_DIR}"
 source "_versions.source"
 
+set -x
 docker push "${MAIN_IMAGE_REPOSITORY}/admin-nginx:${ADMIN_NGINX_BUILD_TAG}"
 docker push "${MAIN_IMAGE_REPOSITORY}/admin-php:${ADMIN_PHP_BUILD_TAG}"
 docker push "${MAIN_IMAGE_REPOSITORY}/elasticsearch:${ELASICSEARCH_SOURCE_TAG}-${ELASICSEARCH_BUILD_TAG}"
