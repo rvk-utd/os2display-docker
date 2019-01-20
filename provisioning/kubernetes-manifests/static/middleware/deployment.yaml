@@ -15,7 +15,7 @@ spec:
         app: middleware
     spec:
       containers:
-      - image: kkos2display/middleware:5.0.2
+      - image: eu.gcr.io/os2display-bbs/os2display-bbs/middleware:5.0.2-bbs-0.0.1
         imagePullPolicy: Always
         name: middleware
         ports:

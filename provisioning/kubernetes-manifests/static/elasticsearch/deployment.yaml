@@ -15,7 +15,7 @@ spec:
         app: elasticsearch
     spec:
       containers:
-      - image: kkos2display/elasticsearch:1.7.1
+      - image: eu.gcr.io/os2display-bbs/os2display-bbs/elasticsearch:1.7.1-bbs-0.0.1
         imagePullPolicy: Always
         name: elasticsearch
         ports:
@@ -24,20 +24,19 @@ spec:
         volumeMounts:
           - name: esdata
             mountPath: /var/lib/elasticsearch
-        resources:
-          readinessProbe:
-            httpGet:
-              path: /_cluster/health
-              port: main-port
-            initialDelaySeconds: 5
-          livenessProbe:
-            httpGet:
-              path: /_cluster/health?local=true
-              port: main-port
-            initialDelaySeconds: 20
+        readinessProbe:
+          httpGet:
+            path: /_cluster/health
+            port: main-port
+          initialDelaySeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /_cluster/health?local=true
+            port: main-port
+          initialDelaySeconds: 20
       initContainers:
         - name: fix-permissions
-          image: kkos2display/elasticsearch:1.7.1
+          image: eu.gcr.io/os2display-bbs/os2display-bbs/elasticsearch:1.7.1-bbs-0.0.1
           command: ["sh", "-c", "chown -R elasticsearch:elasticsearch /var/lib/elasticsearch"]
           volumeMounts:
             - name: esdata

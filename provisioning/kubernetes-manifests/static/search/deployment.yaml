@@ -15,7 +15,7 @@ spec:
         app: search
     spec:
       containers:
-      - image: kkos2display/search:2.1.10-kkpatch-1
+      - image: eu.gcr.io/os2display-bbs/os2display-bbs/search:2.1.10-kkpatch-1-bbs-0.0.1
         imagePullPolicy: Always
         name: search
         ports:
