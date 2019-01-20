@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: search-initial-config
+  name: search-config
 data:
   apikeys.json: |
     {
