@@ -61,7 +61,7 @@ spec:
           containerPort: 9000
       initContainers:
       - name: init-copy-source
-        image: eu.gcr.io/os2display-bbs/os2display-bbs/admin-release:bbs-build-6
+        image: eu.gcr.io/os2display-bbs/os2display-bbs/admin-release:bbs-build-7
         imagePullPolicy: Always
         command: ['sh', '-c', '/opt/init-copy-source.sh; test -d /uploads/media || mkdir /uploads/media; chown -R www-data:www-data /uploads']
         volumeMounts:
