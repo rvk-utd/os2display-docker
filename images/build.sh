@@ -8,7 +8,6 @@ source "_versions.source"
 
 docker build \
  -t ${MAIN_IMAGE_REPOSITORY}/docker-base:latest \
- -t ${MAIN_IMAGE_REPOSITORY}/docker-base:"${DOCKER_BASE_TAG}" \
  -f docker-base/Dockerfile \
  --no-cache \
  --build-arg base_image="${MAIN_BASE_IMAGE}" \
@@ -16,7 +15,6 @@ docker build \
 
 docker build \
  -t ${MAIN_IMAGE_REPOSITORY}/php-base:latest \
- -t ${MAIN_IMAGE_REPOSITORY}/php-base:"${PHP_BASE_TAG}" \
  -f php-base/Dockerfile \
  --no-cache \
  --build-arg os2display_image_repository="${MAIN_IMAGE_REPOSITORY}" \
@@ -24,35 +22,30 @@ docker build \
 
 docker build \
  -t ${MAIN_IMAGE_REPOSITORY}/nginx-base:latest \
- -t ${MAIN_IMAGE_REPOSITORY}/nginx-base:"${NGINX_BASE_TAG}" \
  -f nginx-base/Dockerfile \
  --no-cache \
  --build-arg os2display_image_repository="${MAIN_IMAGE_REPOSITORY}" \
  nginx-base
 
 docker build \
- -t ${MAIN_IMAGE_REPOSITORY}/admin-nginx:latest \
  -t ${MAIN_IMAGE_REPOSITORY}/admin-nginx:"${ADMIN_NGINX_BUILD_TAG}" \
  -f admin-nginx/Dockerfile \
  --build-arg os2display_image_repository="${MAIN_IMAGE_REPOSITORY}" \
  admin-nginx
 
 docker build \
- -t ${MAIN_IMAGE_REPOSITORY}/admin-php:latest \
  -t ${MAIN_IMAGE_REPOSITORY}/admin-php:"${ADMIN_PHP_BUILD_TAG}" \
  -f admin-php/Dockerfile \
  --build-arg os2display_image_repository="${MAIN_IMAGE_REPOSITORY}" \
  admin-php
 
 docker build \
- -t ${MAIN_IMAGE_REPOSITORY}/elasticsearch:latest \
  -t ${MAIN_IMAGE_REPOSITORY}/elasticsearch:"${ELASICSEARCH_SOURCE_TAG}-${ELASICSEARCH_BUILD_TAG}" \
  -f elasticsearch/Dockerfile \
  --build-arg os2display_image_repository="${MAIN_IMAGE_REPOSITORY}" \
  elasticsearch
 
 docker build \
- -t ${MAIN_IMAGE_REPOSITORY}/redis:latest \
  -t ${MAIN_IMAGE_REPOSITORY}/redis:"${REDIS_SOURCE_TAG}-${REDIS_BUILD_TAG}" \
  -f redis/Dockerfile \
  --build-arg os2display_image_repository="${MAIN_IMAGE_REPOSITORY}" \
@@ -60,13 +53,11 @@ docker build \
 
 docker build \
  -t ${MAIN_IMAGE_REPOSITORY}/node-base:latest \
- -t ${MAIN_IMAGE_REPOSITORY}/node-base:"${NODE_BASE_TAG}" \
  -f node-base/Dockerfile \
  --build-arg os2display_image_repository="${MAIN_IMAGE_REPOSITORY}" \
  node-base
 
 docker build \
- -t ${MAIN_IMAGE_REPOSITORY}/search:latest \
  -t ${MAIN_IMAGE_REPOSITORY}/search:"${SEARCH_SOURCE_TAG}-${SEARCH_BUILD_TAG}" \
  -f search/Dockerfile \
  --build-arg os2display_image_repository="${MAIN_IMAGE_REPOSITORY}" \
@@ -75,7 +66,6 @@ docker build \
  search
 
 docker build \
- -t ${MAIN_IMAGE_REPOSITORY}/middleware:latest \
  -t ${MAIN_IMAGE_REPOSITORY}/middleware:"${MIDDLEWARE_SOURCE_TAG}-${MIDDLEWARE_BUILD_TAG}" \
  -f middleware/Dockerfile \
  --build-arg os2display_image_repository="${MAIN_IMAGE_REPOSITORY}" \
@@ -83,7 +73,6 @@ docker build \
  middleware
 
 docker build \
- -t ${MAIN_IMAGE_REPOSITORY}/screen:latest \
  -t ${MAIN_IMAGE_REPOSITORY}/screen:"${SCREEN_SOURCE_TAG}-${SCREEN_BUILD_TAG}" \
  -f screen/Dockerfile \
  --build-arg os2display_image_repository="${MAIN_IMAGE_REPOSITORY}" \
