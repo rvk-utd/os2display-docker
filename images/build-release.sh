@@ -16,7 +16,6 @@ TAG=$1
 cd "${SCRIPT_DIR}"
 docker build \
  -t "${MAIN_IMAGE_REPOSITORY}/admin-release:${TAG}" \
- -t "${MAIN_IMAGE_REPOSITORY}/admin-release:latest" \
  --no-cache \
  -f admin-release/Dockerfile \
  --build-arg os2display_image_repository="${MAIN_IMAGE_REPOSITORY}" \

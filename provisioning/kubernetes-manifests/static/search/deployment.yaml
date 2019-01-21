@@ -15,7 +15,7 @@ spec:
         app: search
     spec:
       containers:
-      - image: kkos2display/search:2.1.10-kkpatch-1
+      - image: eu.gcr.io/os2display-bbs/os2display-bbs/search:2.1.10-kkpatch-1-bbs-0.0.1
         imagePullPolicy: Always
         name: search
         ports:
@@ -28,20 +28,7 @@ spec:
         volumeMounts:
           - name: search-config
             mountPath: /search-config
-      initContainers:
-      - name: init-copy-config
-        image: kkos2display/search:2.1.10-kkpatch-1
-        imagePullPolicy: Always
-        command: ['bash', '-c', '[[ -f /search-config/config.json ]] || cp /initial-config/config.json /search-config/config.json; [[ -f /search-config/apikeys.json ]] || cp /initial-config/apikeys.json /search-config/apikeys.json; [[ -f /search-config/mappings.json ]] || cp /initial-config/mappings.json /search-config/mappings.json']
-        volumeMounts:
-        - name: initial-config-volume
-          mountPath: /initial-config
-        - name: search-config
-          mountPath: /search-config
       volumes:
-        - name: initial-config-volume
-          configMap:
-            name: search-initial-config
         - name: search-config
-          persistentVolumeClaim:
-            claimName: search-config-claim
+          configMap:
+            name: search-config

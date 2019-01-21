@@ -15,7 +15,7 @@ spec:
         app: middleware
     spec:
       containers:
-      - image: kkos2display/middleware:5.0.2
+      - image: eu.gcr.io/os2display-bbs/os2display-bbs/middleware:5.0.2-bbs-0.0.1
         imagePullPolicy: Always
         name: middleware
         ports:
@@ -28,21 +28,8 @@ spec:
         volumeMounts:
           - name: middleware-config
             mountPath:  /middleware-config
-      initContainers:
-      - name: init-copy-config
-        image: kkos2display/middleware:5.0.2
-        imagePullPolicy: Always
-        command: ['bash', '-c', '[[ -f /middleware-config/config.json ]] || cp /initial-config/config.json /middleware-config/config.json; [[ -f /middleware-config/apikeys.json ]] || cp /initial-config/apikeys.json /middleware-config/apikeys.json']
-        volumeMounts:
-        - name: initial-config-volume
-          mountPath: /initial-config
-        - name: middleware-config
-          mountPath: /middleware-config
 
       volumes:
-        - name: initial-config-volume
-          configMap:
-            name: middleware-initial-config
         - name: middleware-config
-          persistentVolumeClaim:
-            claimName: middleware-config-claim
+          configMap:
+            name: middleware-config
