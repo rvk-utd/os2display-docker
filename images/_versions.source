@@ -23,7 +23,7 @@ ADMIN_PHP_BUILD_TAG=bbs-0.0.1
 # We still add a "build" tag to have something to increment if a change is made
 # in the image itself (eg. general software update).
 MIDDLEWARE_REPOSITORY=https://github.com/reload/os2display-middleware.git
-MIDDLEWARE_SOURCE_TAG=5.0.2-console-json-logging-1
+MIDDLEWARE_SOURCE_TAG=5.0.2-console-json-logging-2
 MIDDLEWARE_BUILD_TAG=bbs-0.0.2
 
 SCREEN_SOURCE_TAG=5.0.3
@@ -31,7 +31,7 @@ SCREEN_BUILD_TAG=bbs-0.0.2
 
 # 3rd party projects, we track their versions.
 SEARCH_REPOSITORY=https://github.com/reload/os2display-search_node.git
-SEARCH_SOURCE_TAG=2.1.10-docker-compatibility-1
+SEARCH_SOURCE_TAG=2.1.10-docker-compatibility-2
 SEARCH_BUILD_TAG=bbs-0.0.2
 
 ELASTICSEARCH_SOURCE_TAG=1.7.1
