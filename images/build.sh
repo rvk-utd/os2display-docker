@@ -61,14 +61,15 @@ docker build \
  -t ${MAIN_IMAGE_REPOSITORY}/search:"${SEARCH_SOURCE_TAG}-${SEARCH_BUILD_TAG}" \
  -f search/Dockerfile \
  --build-arg os2display_image_repository="${MAIN_IMAGE_REPOSITORY}" \
- --build-arg revision=feature/support-non-default-es-host \
- --build-arg repository=https://github.com/kkos2/search_node.git \
+ --build-arg repository="${SEARCH_REPOSITORY}"  \
+ --build-arg revision="${SEARCH_SOURCE_TAG}" \
  search
 
 docker build \
  -t ${MAIN_IMAGE_REPOSITORY}/middleware:"${MIDDLEWARE_SOURCE_TAG}-${MIDDLEWARE_BUILD_TAG}" \
  -f middleware/Dockerfile \
  --build-arg os2display_image_repository="${MAIN_IMAGE_REPOSITORY}" \
+ --build-arg repository="${MIDDLEWARE_REPOSITORY}" \
  --build-arg revision="${MIDDLEWARE_SOURCE_TAG}" \
  middleware
 

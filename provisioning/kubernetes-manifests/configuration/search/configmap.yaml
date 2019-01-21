@@ -23,11 +23,7 @@ data:
         "password": "<insert-admin-password-here>"
       },
       "logs": {
-        "all": "logs/messages.log",
-        "info": "logs/info.log",
-        "error": "logs/error.log",
-        "debug": "logs/debug.log",
-        "socket": "logs/socket.log"
+        "mode": "console-json"
       },
       "search": {
         "hosts": [ "elasticsearch:9200" ],
