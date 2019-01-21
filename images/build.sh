@@ -40,7 +40,7 @@ docker build \
  admin-php
 
 docker build \
- -t ${MAIN_IMAGE_REPOSITORY}/elasticsearch:"${ELASICSEARCH_SOURCE_TAG}-${ELASICSEARCH_BUILD_TAG}" \
+ -t ${MAIN_IMAGE_REPOSITORY}/elasticsearch:"${ELASTICSEARCH_SOURCE_TAG}-${ELASTICSEARCH_BUILD_TAG}" \
  -f elasticsearch/Dockerfile \
  --build-arg os2display_image_repository="${MAIN_IMAGE_REPOSITORY}" \
  elasticsearch
