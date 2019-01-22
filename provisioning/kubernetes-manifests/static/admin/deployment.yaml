@@ -19,7 +19,7 @@ spec:
           hostnames:
             - "admin-php"
       containers:
-      - image: eu.gcr.io/os2display-bbs/os2display-bbs/admin-php:bbs-0.0.1
+      - image: eu.gcr.io/os2display-bbs/os2display-bbs/admin-php:bbs-0.0.2
         imagePullPolicy: Always
         name: admin-php
         volumeMounts:
@@ -35,7 +35,7 @@ spec:
             value: "prod"
           - name: APP_DEBUG
             value: "0"
-      - image: eu.gcr.io/os2display-bbs/os2display-bbs/admin-nginx:bbs-0.0.1
+      - image: eu.gcr.io/os2display-bbs/os2display-bbs/admin-nginx:bbs-0.0.2
         imagePullPolicy: Always
         name: admin-nginx
         volumeMounts:
@@ -54,7 +54,7 @@ spec:
             value: "prod"
           - name: APP_DEBUG
             value: "0"
-      - image: eu.gcr.io/os2display-bbs/os2display-bbs/admin-php:bbs-0.0.1
+      - image: eu.gcr.io/os2display-bbs/os2display-bbs/admin-php:bbs-0.0.2
         imagePullPolicy: Always
         name: admin-cron
         command: ['/usr/local/bin/jobber-entrypoint.sh']
@@ -76,7 +76,7 @@ spec:
             value: "0"
       initContainers:
       - name: init-copy-source
-        image: eu.gcr.io/os2display-bbs/os2display-bbs/admin-release:bbs-build-7
+        image: eu.gcr.io/os2display-bbs/os2display-bbs/admin-release:bbs-build-9
         imagePullPolicy: Always
         command: ['sh', '-c', '/opt/init-copy-source.sh; test -d /uploads/media || mkdir /uploads/media; chown -R www-data:www-data /uploads']
         volumeMounts:
