@@ -56,7 +56,7 @@ services:
   # This service only has any effect when the admin-release volume is empty.
   # Ie. introduce an empty admin-release: volume in a docker-compose.override.yml.
   admin_release:
-    image: eu.gcr.io/os2display-bbs/os2display-bbs/admin-release:bbs-build-6
+    image: eu.gcr.io/os2display-bbs/os2display-bbs/admin-release:bbs-build-7
     volumes:
       - admin-release:/release
     networks:
@@ -71,7 +71,7 @@ services:
       - es-data:/var/lib/elasticsearch
 
   search:
-    image: eu.gcr.io/os2display-bbs/os2display-bbs/search:2.1.10-kkpatch-1-bbs-0.0.1
+    image: eu.gcr.io/os2display-bbs/os2display-bbs/search:2.1.10-docker-compatibility-2-bbs-0.0.2
     ports:
       - 3010
     volumes:
@@ -90,7 +90,7 @@ services:
       - backend
 
   middleware:
-    image: eu.gcr.io/os2display-bbs/os2display-bbs/middleware:5.0.2-bbs-0.0.1
+    image: eu.gcr.io/os2display-bbs/os2display-bbs/middleware:5.0.2-console-json-logging-2-bbs-0.0.2
     ports:
       - 3020
     networks:
