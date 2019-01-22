@@ -15,9 +15,9 @@ NODE_BASE_TAG=latest
 
 # Support images that does not contain any project-code, thus we track eg. 
 # configuration-changes and general software updates via a "build" tag.
-ADMIN_NGINX_BUILD_TAG=bbs-0.0.1
+ADMIN_NGINX_BUILD_TAG=bbs-0.0.2
 # TODO - the admin-cron image references this version, so remember to bump it.
-ADMIN_PHP_BUILD_TAG=bbs-0.0.1
+ADMIN_PHP_BUILD_TAG=bbs-0.0.2
 
 # Core os2display projects, the tags follow the version projects.
 # We still add a "build" tag to have something to increment if a change is made

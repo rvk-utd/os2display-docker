@@ -2,7 +2,7 @@ version: "3.2"
 services:
 
   admin-nginx:
-    image: eu.gcr.io/os2display-bbs/os2display-bbs/admin-nginx:bbs-0.0.1
+    image: eu.gcr.io/os2display-bbs/os2display-bbs/admin-nginx:bbs-0.0.2
     ports:
       - 80
     # We need search and middleware to be resolvable before starting.
@@ -16,11 +16,13 @@ services:
       - admin_release
     environment:
       VIRTUAL_HOST: admin.os2display.docker
+      APP_ENV: "dev"
+      APP_DEBUG: "1"
     networks:
       - backend
 
   admin-php:
-    image: eu.gcr.io/os2display-bbs/os2display-bbs/admin-php:bbs-0.0.1
+    image: eu.gcr.io/os2display-bbs/os2display-bbs/admin-php:bbs-0.0.2
     depends_on:
       - admin_release
     volumes:
@@ -32,11 +34,13 @@ services:
     environment:
       # PHPstorm needs this to work with xdebug.
       PHP_IDE_CONFIG: "serverName=admin.os2display.docker"
+      APP_ENV: "dev"
+      APP_DEBUG: "1"
     networks:
       - backend
 
   admin-cron:
-    image: eu.gcr.io/os2display-bbs/os2display-bbs/admin-php:bbs-0.0.1
+    image: eu.gcr.io/os2display-bbs/os2display-bbs/admin-php:bbs-0.0.2
     depends_on:
       - admin_release
     volumes:
@@ -48,6 +52,7 @@ services:
     environment:
       # The crontab picks this up and passes it to Symfony.
       APP_ENV: "dev"
+      APP_DEBUG: "1"
     networks:
       - backend
     command: jobber-entrypoint.sh

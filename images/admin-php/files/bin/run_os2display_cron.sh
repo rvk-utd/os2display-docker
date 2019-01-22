@@ -14,4 +14,4 @@ fi
 
 cd /var/www/admin
 echo "running in $APP_ENV"
-gosu www-data app/console --env="$APP_ENV" os2display:core:cron
+APP_ENV=${APP_ENV} gosu www-data app/console os2display:core:cron
