@@ -78,9 +78,6 @@ data:
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         fastcgi_param HTTPS off;
 
-        # TODO
-        fastcgi_param SYMFONY_DEBUG "true";
-
         internal;
       }
 

@@ -19,7 +19,7 @@ spec:
           hostnames:
             - "admin-php"
       containers:
-      - image: eu.gcr.io/os2display-bbs/os2display-bbs/admin-php:bbs-0.0.1
+      - image: eu.gcr.io/os2display-bbs/os2display-bbs/admin-php:bbs-0.0.2
         imagePullPolicy: Always
         name: admin-php
         volumeMounts:
@@ -30,7 +30,12 @@ spec:
           subPath: parameters.yml
         - name: uploads
           mountPath: /var/www/admin/web/uploads
-      - image: eu.gcr.io/os2display-bbs/os2display-bbs/admin-nginx:bbs-0.0.1
+        env:
+          - name: APP_ENV
+            value: "prod"
+          - name: APP_DEBUG
+            value: "0"
+      - image: eu.gcr.io/os2display-bbs/os2display-bbs/admin-nginx:bbs-0.0.2
         imagePullPolicy: Always
         name: admin-nginx
         volumeMounts:
@@ -44,7 +49,12 @@ spec:
         ports:
           - name: main-port
             containerPort: 80
-      - image: eu.gcr.io/os2display-bbs/os2display-bbs/admin-php:bbs-0.0.1
+        env:
+          - name: APP_ENV
+            value: "prod"
+          - name: APP_DEBUG
+            value: "0"
+      - image: eu.gcr.io/os2display-bbs/os2display-bbs/admin-php:bbs-0.0.2
         imagePullPolicy: Always
         name: admin-cron
         command: ['/usr/local/bin/jobber-entrypoint.sh']
@@ -59,9 +69,14 @@ spec:
         ports:
         - name: fpm-port
           containerPort: 9000
+        env:
+          - name: APP_ENV
+            value: "prod"
+          - name: APP_DEBUG
+            value: "0"
       initContainers:
       - name: init-copy-source
-        image: eu.gcr.io/os2display-bbs/os2display-bbs/admin-release:bbs-build-7
+        image: eu.gcr.io/os2display-bbs/os2display-bbs/admin-release:bbs-build-9
         imagePullPolicy: Always
         command: ['sh', '-c', '/opt/init-copy-source.sh; test -d /uploads/media || mkdir /uploads/media; chown -R www-data:www-data /uploads']
         volumeMounts:

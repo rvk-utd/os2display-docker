@@ -2,7 +2,7 @@ version: "3.2"
 services:
 
   admin-nginx:
-    image: eu.gcr.io/os2display-bbs/os2display-bbs/admin-nginx:bbs-0.0.1
+    image: eu.gcr.io/os2display-bbs/os2display-bbs/admin-nginx:bbs-0.0.2
     ports:
       - 80
     # We need search and middleware to be resolvable before starting.
@@ -16,11 +16,13 @@ services:
       - admin_release
     environment:
       VIRTUAL_HOST: admin.bbs-os2display.docker
+      APP_ENV: "dev"
+      APP_DEBUG: "1"
     networks:
       - backend
 
   admin-php:
-    image: eu.gcr.io/os2display-bbs/os2display-bbs/admin-php:bbs-0.0.1
+    image: eu.gcr.io/os2display-bbs/os2display-bbs/admin-php:bbs-0.0.2
     depends_on:
       - admin_release
     volumes:
@@ -32,11 +34,13 @@ services:
     environment:
       # PHPstorm needs this to work with xdebug.
       PHP_IDE_CONFIG: "serverName=admin.bbs-os2display.docker"
+      APP_ENV: "dev"
+      APP_DEBUG: "1"
     networks:
       - backend
 
   admin-cron:
-    image: eu.gcr.io/os2display-bbs/os2display-bbs/admin-php:bbs-0.0.1
+    image: eu.gcr.io/os2display-bbs/os2display-bbs/admin-php:bbs-0.0.2
     depends_on:
       - admin_release
     volumes:
@@ -48,6 +52,7 @@ services:
     environment:
       # The crontab picks this up and passes it to Symfony.
       APP_ENV: "dev"
+      APP_DEBUG: "1"
     networks:
       - backend
     command: jobber-entrypoint.sh
@@ -56,7 +61,7 @@ services:
   # This service only has any effect when the admin-release volume is empty.
   # Ie. introduce an empty admin-release: volume in a docker-compose.override.yml.
   admin_release:
-    image: eu.gcr.io/os2display-bbs/os2display-bbs/admin-release:bbs-build-6
+    image: eu.gcr.io/os2display-bbs/os2display-bbs/admin-release:bbs-build-7
     volumes:
       - admin-release:/release
     networks:
@@ -71,7 +76,7 @@ services:
       - es-data:/var/lib/elasticsearch
 
   search:
-    image: eu.gcr.io/os2display-bbs/os2display-bbs/search:2.1.10-kkpatch-1-bbs-0.0.1
+    image: eu.gcr.io/os2display-bbs/os2display-bbs/search:2.1.10-docker-compatibility-2-bbs-0.0.2
     ports:
       - 3010
     volumes:
@@ -90,7 +95,7 @@ services:
       - backend
 
   middleware:
-    image: eu.gcr.io/os2display-bbs/os2display-bbs/middleware:5.0.2-bbs-0.0.1
+    image: eu.gcr.io/os2display-bbs/os2display-bbs/middleware:5.0.2-console-json-logging-2-bbs-0.0.2
     ports:
       - 3020
     networks:
