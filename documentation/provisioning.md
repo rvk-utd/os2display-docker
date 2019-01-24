@@ -15,11 +15,11 @@ And that you've created a google cloud project.
 3. Run `configure-kubectl.sh` to configure your local kubectl - this might 
    require a couple of tries as the cluster is being provisioned.
 4. Verify that the cluster is available by running `kubectl get nodes`
-2. Run `02-helm.sh` to prepare the cluster for Helm and install Tiller.
-3. Run `get-external-ip.sh`, insert the ip-address listet under "address" in 
+5. Run `02-helm.sh` to prepare the cluster for Helm and install Tiller.
+6. Run `get-external-ip.sh`, insert the ip-address listet under "address" in 
    `_settings.sh` and uncomment the line. (Try a couple of times if the IP is 
    not available yet).
-4. Run `03-setup-ingress.sh` to install an Ingress controller and certificate 
+7. Run `03-setup-ingress.sh` to install an Ingress controller and certificate 
    manager.
 
 You a now ready to create a namespace and deploy OS2Display to it.

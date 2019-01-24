@@ -21,16 +21,20 @@ Now `cd` to the root of this repo and:
 3. Edit the file `provisioning/kubernetes-manifests/static/admin/deployment.yaml` and find the initContainer named `init-copy-source` and bump the tag on it's image to `MYTAG`.
 4. Just to be safe, check that you are in the right kubectl context:
 `kubectl config get-contexts`. There should be a star next to the name that ends in `os2display-bbs-cluster-1`. If you are in the wrong context, change it with ` kubectl config use-context YOURCONTEXT`.
-5. Do the actual deployment:
+5. Verify that you have access to the cluster and namespace you are about to deploy to:
 ```bash
-kubectl apply --namespace=bbs-pilot1 -f provisioning/kubernetes-manifests/static/admin/deployment.yaml
+kubectl get --namespace=bbs-pilot1 deployments,pods
 ```
-6. Commit and push `provisioning/kubernetes-manifests/static/admin/deployment.yaml` to master and you are done! 
-
-If you want to keep an eye on the deployment you can use this:
+Consider leaving this overview running in a window while you deploy:
 ```bash
 watch -n 1 kubectl --namespace=bbs-pilot1 get deployments,pods
 ```
+6. Do the actual deployment:
+```bash
+kubectl apply --namespace=bbs-pilot1 -f provisioning/kubernetes-manifests/static/admin/deployment.yaml
+```
+7. Commit and push `provisioning/kubernetes-manifests/static/admin/deployment.yaml` to master and you are done! 
+
 
 
 
