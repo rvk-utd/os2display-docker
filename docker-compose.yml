@@ -15,7 +15,7 @@ services:
       - search
       - admin_release
     environment:
-      VIRTUAL_HOST: admin.os2display.docker
+      VIRTUAL_HOST: admin.bbs-os2display.docker
       APP_ENV: "dev"
       APP_DEBUG: "1"
     networks:
@@ -33,7 +33,7 @@ services:
       - ./development/scripts:/opt/development/scripts
     environment:
       # PHPstorm needs this to work with xdebug.
-      PHP_IDE_CONFIG: "serverName=admin.os2display.docker"
+      PHP_IDE_CONFIG: "serverName=admin.bbs-os2display.docker"
       APP_ENV: "dev"
       APP_DEBUG: "1"
     networks:
@@ -83,7 +83,7 @@ services:
       # Mount in a log-tailer that will output our logs to standard out
       - './images/search/tools/log-stream-service.sh:/etc/my_init.d/99_log-tailer:ro'
     environment:
-      VIRTUAL_HOST: search.os2display.docker
+      VIRTUAL_HOST: search.bbs-os2display.docker
     depends_on:
       - elasticsearch
     networks:
@@ -101,7 +101,7 @@ services:
     networks:
       - backend
     environment:
-      VIRTUAL_HOST: middleware.os2display.docker
+      VIRTUAL_HOST: middleware.bbs-os2display.docker
     depends_on:
       - redis
     volumes:
@@ -113,7 +113,7 @@ services:
     ports:
       - 80
     environment:
-      VIRTUAL_HOST: screen.os2display.docker
+      VIRTUAL_HOST: screen.bbs-os2display.docker
     networks:
       - backend
     # We proxy these so need them to exist.
@@ -138,7 +138,7 @@ services:
     networks:
       - backend
     environment:
-      VIRTUAL_HOST: mail.os2display.docker
+      VIRTUAL_HOST: mail.bbs-os2display.docker
       VIRTUAL_PORT: 8025
 
 
