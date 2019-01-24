@@ -3,8 +3,6 @@
 set -euxo pipefail
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-source "${SCRIPT_DIR}/_settings.sh"
-
 kubectl create serviceaccount tiller --namespace kube-system
 
 # Grant the service-account permissions via a binding.

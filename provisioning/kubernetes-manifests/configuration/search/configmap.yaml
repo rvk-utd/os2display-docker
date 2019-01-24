@@ -5,11 +5,11 @@ metadata:
 data:
   apikeys.json: |
     {
-      "<insert-search-api-key-here>": {
+      "<insert-search-apikey-here>": {
         "name": "AdminSearchIndex",
         "expire": 300,
         "indexes": [
-          "<insert-search-index-id-here>"
+          "<insert-lowercased-search-index-id-here>"
         ],
         "access": "rw"
       }
@@ -34,7 +34,7 @@ data:
     }
   mappings.json: |
     {
-      "<insert-search-index-id-here>": {
+      "<insert-lowercased-search-index-id-here>": {
         "name": "AdminSearchIndex",
         "tag": "private",
         "fields": [

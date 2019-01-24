@@ -33,8 +33,8 @@ data:
         search_host: 'http://search:3010'
         search_host_public: 'https://search.os2display-bbs.reload.dk'
         search_path: /api
-        search_apikey: <insert-search-api-key-here>
-        search_index: <insert-search-index-id-here>
+        search_apikey: <insert-search-apikey-here>
+        search_index: <insert-lowercased-search-index-id-here>
         middleware_host: 'http://middleware:3020'
         middleware_path: /api
         middleware_apikey: <insert-middelware-apikey-here>
