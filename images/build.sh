@@ -4,7 +4,7 @@ IFS=$'\n\t'
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "${SCRIPT_DIR}"
-source "_versions.source"
+source "../_variables.source"
 
 docker build \
  -t ${MAIN_IMAGE_REPOSITORY}/docker-base:latest \

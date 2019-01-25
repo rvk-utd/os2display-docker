@@ -6,6 +6,8 @@ issues or jira-tickets.s
   roles that interacts with the project to focus on their work. (Eg. a 
   "developer" eventually don't have to care about kubernetes manifets).
 
+* Improve documentation on how to get started as a developer.
+
 ## Docker
 * Switch to a offical Redis image with persistence.
 * Reconfigure php to use a persisted session-store (a volume) to let sessions 

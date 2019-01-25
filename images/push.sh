@@ -3,7 +3,7 @@ set -exuo pipefail
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "${SCRIPT_DIR}"
-source "_versions.source"
+source "../_variables.source"
 
 set -x
 docker push "${MAIN_IMAGE_REPOSITORY}/admin-nginx:${ADMIN_NGINX_BUILD_TAG}"
