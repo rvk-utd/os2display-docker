@@ -15,7 +15,7 @@ spec:
         app: middleware
     spec:
       containers:
-      - image: eu.gcr.io/os2display-bbs/os2display-bbs/middleware:5.0.2-console-json-logging-2-bbs-0.0.2
+      - image: <insert-middleware-image-path-here>
         imagePullPolicy: Always
         name: middleware
         ports:

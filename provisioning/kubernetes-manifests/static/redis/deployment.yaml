@@ -15,7 +15,7 @@ spec:
         app: redis
     spec:
       containers:
-      - image: eu.gcr.io/os2display-bbs/os2display-bbs/redis:4.0.9-bbs-0.0.1
+      - image: <insert-redis-image-path-here>
         imagePullPolicy: Always
         name: redis
         ports:

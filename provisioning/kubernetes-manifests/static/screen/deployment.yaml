@@ -15,7 +15,7 @@ spec:
         app: screen
     spec:
       containers:
-      - image: eu.gcr.io/os2display-bbs/os2display-bbs/screen:5.0.3-bbs-0.0.2
+      - image: <insert-screen-image-path-here>
         imagePullPolicy: Always
         name: screen
         volumeMounts:

@@ -1,4 +1,4 @@
-# Infrastructure for Os2Display BBS
+# Infrastructure for Os2Display
 
 The repository contains a Docker setup for running locally and images for running on production.
 
@@ -15,7 +15,7 @@ If you want to develop OS2Display you'll need git as well (and any additional de
 make reset-release
 ```
 
-After reset the site will be available at https://admin.bbs-os2display.docker
+After reset the site will be available at https://admin.<insert-docker-base-domain-here>
 
 ## Preparing for development
 ```bash
@@ -23,7 +23,7 @@ make clone
 make reset-dev
 ```
 
-After reset the site will be available at https://admin.bbs-os2display.docker
+After reset the site will be available at https://admin.<insert-docker-base-domain-here>
 
 ## Other
 See Makefile and the [documentation](documentation) for more details or feel

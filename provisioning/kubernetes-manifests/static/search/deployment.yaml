@@ -15,7 +15,7 @@ spec:
         app: search
     spec:
       containers:
-      - image: eu.gcr.io/os2display-bbs/os2display-bbs/search:2.1.10-docker-compatibility-2-bbs-0.0.2
+      - image: <insert-search-image-path-here>
         imagePullPolicy: Always
         name: search
         ports:

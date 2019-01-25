@@ -15,7 +15,7 @@ spec:
         app: elasticsearch
     spec:
       containers:
-      - image: eu.gcr.io/os2display-bbs/os2display-bbs/elasticsearch:1.7.1-bbs-0.0.1
+      - image: <insert-elasticsearch-image-path-here>
         imagePullPolicy: Always
         name: elasticsearch
         ports:
@@ -36,7 +36,7 @@ spec:
           initialDelaySeconds: 20
       initContainers:
         - name: fix-permissions
-          image: eu.gcr.io/os2display-bbs/os2display-bbs/elasticsearch:1.7.1-bbs-0.0.1
+          image: <insert-elasticsearch-image-path-here>
           command: ["sh", "-c", "chown -R elasticsearch:elasticsearch /var/lib/elasticsearch"]
           volumeMounts:
             - name: esdata
