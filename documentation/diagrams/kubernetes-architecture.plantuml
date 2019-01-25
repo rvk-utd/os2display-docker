@@ -22,9 +22,6 @@ rectangle ingress_search as "Ingress: Search"
 storage storage_uploads as "volume: uploads"
 storage storage_datadir as "volume: datadir"
 storage storage_esdata as "volume: esdata"
-storage storage_search_config as "volume: search-config"
-storage storage_middleware_config as "volume: middleware-config"
-storage storage_screen_config as "volume: screen-config"
 
 ' Define deployments and their containers
 together {
@@ -75,9 +72,6 @@ admin_php -d- storage_release_src
 admin_php --- storage_uploads
 mariadb --- storage_datadir
 elasticsearch --- storage_esdata
-search_node --- storage_search_config
-middleware --- storage_middleware_config
-screen --- storage_screen_config
 
 ' Connect services to containers
 service_admin -d--> admin_nginx
