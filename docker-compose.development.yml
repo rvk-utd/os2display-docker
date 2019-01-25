@@ -1,0 +1,27 @@
+# Mount a live checkout as admin-release.
+version: "3.7"
+
+services:
+  admin-nginx:
+    environment:
+      VIRTUAL_HOST: admin.${DOCKER_BASE_DOMAIN}
+      APP_ENV: "dev"
+      APP_DEBUG: "1"
+
+  admin-php:
+    environment:
+      PHP_IDE_CONFIG: "serverName=admin.${DOCKER_BASE_DOMAIN}"
+      APP_ENV: "dev"
+      APP_DEBUG: "1"
+
+  admin-cron:
+    environment:
+      APP_ENV: "dev"
+      APP_DEBUG: "1"
+
+volumes:
+  admin-release:
+    driver_opts:
+      type: none
+      device: $PWD/development
+      o: bind
