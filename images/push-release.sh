@@ -7,7 +7,7 @@ if [[ $# -eq 0 ]] ; then
 fi
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "${SCRIPT_DIR}"
-source "_versions.source"
+source "../_variables.source"
 
 TAG=$1
 set -x

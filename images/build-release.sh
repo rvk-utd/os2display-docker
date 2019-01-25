@@ -4,7 +4,7 @@ IFS=$'\n\t'
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "${SCRIPT_DIR}"
-source "_versions.source"
+source "../_variables.source"
 
 if [[ $# -eq 0 ]] ; then
     echo "Syntax: $0 <tag>"
