@@ -5,6 +5,9 @@
 # MAIN COMMAND TARGETS
 # =============================================================================
 .DEFAULT_GOAL := help
+# Include environment variables and re-export them.
+include _variables.source
+export
 
 help: ## Display a list of the public targets
 # Find lines that starts with a word-character, contains a colon and then a
@@ -12,7 +15,9 @@ help: ## Display a list of the public targets
 # targets), then strip the hash and print.
 	@grep -E -h "^\w.*:.*##" $(MAKEFILE_LIST) | sed -e 's/\(.*\):.*##\(.*\)/\1	\2/'
 
-reset: _reset-container-state ## Stop all containers, reset their state and start up again.
+reset-dev: _dc_compile_dev _reset-container-state ## Release-test mode: stop all containers, reset their state and start up again.
+
+reset-release: _dc_compile_release _reset-container-state ## Development-mode: stop all containers, reset their state and start up again.
 
 up:  ## Take the whole environment up without altering the existing state of the containers.
 	docker-compose up -d --remove-orphans
@@ -39,16 +44,16 @@ build-images: ## Build docker-images.
 	images/build.sh
 
 build-release: ## Build a release and tag it by TAG
-	images/build-release.sh $(TAG)
+	images/build-release.sh $(ADMIN_RELEASE_TAG)
 
 push-release: ## Push a release specified by TAG
-	images/push-release.sh $(TAG)
+	images/push-release.sh $(ADMIN_RELEASE_TAG)
 
 push-images: ## Push docker-images.
 	images/push.sh
 
 clone-admin: ## Do an initial clone of the admin repo.
-	git clone --branch=kk-develop git@github.com:kkos2/os2display-admin.git development/admin
+	git clone --branch=bbs-develop git@github.com:rvk-utd/os2display-admin.git development/admin
 
 ifeq (,$(wildcard ./docker-compose.override.yml))
     dc_override =
@@ -59,8 +64,19 @@ run-cron: ## Run Cron
 # Differentiate how to run composer depending on whether we have an override.
 	docker-compose -f docker-compose.yml $(dc_override) run --rm admin-cron run_os2display_cron.sh
 
+load-templates: ## Reload templates
+	docker-compose exec admin-php app/console os2display:core:templates:load
+	docker-compose exec admin-php chown -R www-data:www-data app/cache
+
+cc: ## Clear the admin cache
+	docker-compose exec admin-php app/console cache:clear
+	docker-compose exec admin-php chown -R www-data:www-data app/cache
+
 xdebug: ## Start xdebug for the admin-php container.
 	docker-compose exec admin-php xdebug-start
+
+configure-kubectl: ## Configure local kubectl with a context for our cluster.
+	provisioning/initial-setup/configure-kubectl.sh
 
 # =============================================================================
 # HELPERS
@@ -69,10 +85,26 @@ xdebug: ## Start xdebug for the admin-php container.
 
 # Fetch and replace updated containers and db-dump images and run composer install.
 _reset-container-state:
+# docker-compose has a nasty tendency to leave containers hanging around
+# just at bit to long which results in an error as a volume that is still
+# in use is attempted deleted. To compensate for this we run docker-compose
+# down twice and only exit if the second attempt fails.
+# This will result in some warnings the second time around that can safely
+# be ignored.
+	docker-compose down -v --remove-orphans || true
 	docker-compose down -v --remove-orphans
 	docker-compose up -d
-	sleep 10
-	docker-compose exec admin-php /opt/development/scripts/_docker-init-environment.sh
+# TODO - when resetting a release we should wait for admin_php to copy its files
+#        before invoking _docker-init-environment. Until then we leave a sleep
+#        here
+	sleep 5
+	docker-compose exec admin-php bash -c "wait-for-it -t 60 admin-db:3306 && /opt/development/scripts/_docker-init-environment.sh"
 
-.PHONY: default help reset up stop logs status docs _reset-container-state build-images
+_dc_compile_release:
+	docker-compose -f docker-compose.common.yml -f docker-compose.release.yml config > docker-compose.yml
+
+_dc_compile_dev:
+	docker-compose -f docker-compose.common.yml -f docker-compose.development.yml config > docker-compose.yml
+
+.PHONY: help reset-dev reset-release up stop logs build-iamges build-release push-release clone-admin run-cron load-templates cc xdebug configure-kubectl _reset-container-state _dc_compile_release _dc_compile_dev
 

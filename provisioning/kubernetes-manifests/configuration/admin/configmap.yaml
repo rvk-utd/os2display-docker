@@ -17,29 +17,29 @@ data:
         mailer_user: null
         mailer_port: 25
         mailer_password: null
-        mailer_from_email: admin@example.com
-        mailer_from_name: Admin
+        mailer_from_email: <insert-admin-email-here>
+        mailer_from_name: <insert-admin-name-here>
         locale: da
-        secret: Thaxoophib0iikeefei8azoju2ahtu4cheero0Ch
+        secret: <insert-admin-secret-here>
         debug_toolbar: true
         debug_redirects: false
         use_assetic_controller: true
-        absolute_path_to_server: 'https://admin.kkos2display.dk'
+        absolute_path_to_server: 'https://admin.<insert-environment-base-domain-here>'
         zencoder_api: ~
         sharing_host: ~
         sharing_path: ~
         sharing_apikey: ~
         sharing_enabled: false
         search_host: 'http://search:3010'
-        search_host_public: 'https://search.kkos2display.dk'
+        search_host_public: 'https://search.<insert-environment-base-domain-here>'
         search_path: /api
-        search_apikey: <insert-search-api-key-here>
-        search_index: <insert-search-index-id-here>
+        search_apikey: <insert-search-apikey-here>
+        search_index: <insert-lowercased-search-index-id-here>
         middleware_host: 'http://middleware:3020'
         middleware_path: /api
         middleware_apikey: <insert-middelware-apikey-here>
-        site_title: 'KFF Os2Display - Produktion'
-        version: prod-0.1
+        site_title: '<insert-environment-title-here>'
+        version: <insert-environment-version-here>
         itk_log_version: 1
         itk_log_error_callback: /api/error
         itk_log_log_to_console: true
@@ -77,9 +77,6 @@ data:
 
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         fastcgi_param HTTPS off;
-
-        # TODO
-        fastcgi_param SYMFONY_DEBUG "true";
 
         internal;
       }

@@ -1,112 +1,88 @@
-version: "3.2"
+# Base docker-compose file used by each of the specific mode-files.
+version: "3.7"
 services:
 
+  # Hosts static requests to admin and proxies dynamic requests to admin-php.
   admin-nginx:
-    image: kkos2display/admin-nginx:0.3
+    image: eu.gcr.io/os2display-bbs/os2display-bbs/admin-nginx:${ADMIN_NGINX_BUILD_TAG}
     ports:
       - 80
-    # We need search and middleware to be resolvable before starting.
     volumes:
       - admin-release:/var/www
       - symfony-cache:/var/www/admin/app/cache
       - admin-uploads:/var/www/admin/web/uploads
+    # We need search and middleware to be resolvable before starting or nginx
+    # will crash.
     depends_on:
       - middleware
       - search
-      - admin_release
     environment:
-      VIRTUAL_HOST: admin.os2display.docker
-    networks:
-      - backend
+      VIRTUAL_HOST: admin.${DOCKER_BASE_DOMAIN}
 
   admin-php:
-    image: kkos2display/admin-php:0.3
-    depends_on:
-      - admin_release
+    image: eu.gcr.io/os2display-bbs/os2display-bbs/admin-php:${ADMIN_PHP_BUILD_TAG}
     volumes:
       - admin-release:/var/www
       - admin-uploads:/var/www/admin/web/uploads
       - symfony-cache:/var/www/admin/app/cache
       - ./development/config/parameters.yml:/var/www/admin/app/config/parameters.yml
       - ./development/scripts:/opt/development/scripts
-    environment:
-      # PHPstorm needs this to work with xdebug.
-      PHP_IDE_CONFIG: "serverName=admin.os2display.docker"
-    networks:
-      - backend
 
   admin-cron:
-    image: kkos2display/admin-php:0.3
-    depends_on:
-      - admin_release
+    image: eu.gcr.io/os2display-bbs/os2display-bbs/admin-php:${ADMIN_PHP_BUILD_TAG}
     volumes:
       - admin-release:/var/www
       - admin-uploads:/var/www/admin/web/uploads
       - symfony-cache:/var/www/admin/app/cache
       - ./development/config/parameters.yml:/var/www/admin/app/config/parameters.yml
       - ./development/scripts:/opt/development/scripts
-    environment:
-      # The crontab picks this up and passes it to Symfony.
-      APP_ENV: "dev"
-    networks:
-      - backend
     command: jobber-entrypoint.sh
 
-  # Contains the latest source-release.
-  # This service only has any effect when the admin-release volume is empty.
-  # Ie. introduce an empty admin-release: volume in a docker-compose.override.yml.
-  admin_release:
-    image: kkos2display/admin-release:build-3
-    volumes:
-      - admin-release:/release
-    networks:
-      - backend
-    command: /opt/init-copy-source.sh
-
   elasticsearch:
-    image: kkos2display/elasticsearch:1.7.1
-    networks:
-      - backend
+    image: eu.gcr.io/os2display-bbs/os2display-bbs/elasticsearch:${ELASTICSEARCH_SOURCE_TAG}-${ELASTICSEARCH_BUILD_TAG}
     volumes:
       - es-data:/var/lib/elasticsearch
 
   search:
-    image: kkos2display/search:2.1.10-kkpatch-1
+    image: eu.gcr.io/os2display-bbs/os2display-bbs/search:${SEARCH_SOURCE_TAG}-${SEARCH_BUILD_TAG}
     ports:
       - 3010
     volumes:
       # Mount in a log-tailer that will output our logs to standard out
       - './images/search/tools/log-stream-service.sh:/etc/my_init.d/99_log-tailer:ro'
     environment:
-      VIRTUAL_HOST: search.os2display.docker
+      VIRTUAL_HOST: search.${DOCKER_BASE_DOMAIN}
     depends_on:
       - elasticsearch
-    networks:
-      - backend
 
   redis:
-    image: kkos2display/redis:4.0.9
-    networks:
-      - backend
+    image: eu.gcr.io/os2display-bbs/os2display-bbs/redis:${REDIS_SOURCE_TAG}-${REDIS_BUILD_TAG}
 
   middleware:
-    image: kkos2display/middleware
+    image: eu.gcr.io/os2display-bbs/os2display-bbs/middleware:${MIDDLEWARE_SOURCE_TAG}-${MIDDLEWARE_BUILD_TAG}
     ports:
       - 3020
-    networks:
-      - backend
     environment:
-      VIRTUAL_HOST: middleware.os2display.docker
+      VIRTUAL_HOST: middleware.${DOCKER_BASE_DOMAIN}
     depends_on:
       - redis
     volumes:
       # Mount in a log-tailer that will output our logs to standard out
       - './images/middleware/tools/log-stream-service.sh:/etc/my_init.d/99_log-tailer:ro'
 
+  screen:
+    image: eu.gcr.io/os2display-bbs/os2display-bbs/screen:${SCREEN_SOURCE_TAG}-${SCREEN_BUILD_TAG}
+    ports:
+      - 80
+    environment:
+      VIRTUAL_HOST: screen.${DOCKER_BASE_DOMAIN}
+    # We proxy these so need them to exist.
+    depends_on:
+      - middleware
+      - search
+
   admin-db:
     image: mariadb:10.3
-    networks:
-      - backend
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: os2display
@@ -117,27 +93,17 @@ services:
 
   mailhog:
     image: mailhog/mailhog
-    networks:
-      - backend
     environment:
-      VIRTUAL_HOST: mail.os2display.docker
+      VIRTUAL_HOST: mail.${DOCKER_BASE_DOMAIN}
       VIRTUAL_PORT: 8025
 
-  screen:
-    image: kkos2display/screen:latest
-    ports:
-      - 80
-    environment:
-      VIRTUAL_HOST: screen.os2display.docker
-    networks:
-      - backend
-    # We proxy these so need them to exist.
-    depends_on:
-      - middleware
-      - search
-
-networks:
-  backend:
+  # Add in the admin_release service even though we might not need its contents
+  # if we're running in dev-mode.
+  # The reason we still add it in common is in order for docker-compose down
+  # to know that the container needs to be removed when we switch from release-
+  # to dev-mode.
+  admin_release:
+    image: eu.gcr.io/os2display-bbs/os2display-bbs/admin-release:${ADMIN_RELEASE_TAG}
 
 volumes:
   es-data:
@@ -145,7 +111,4 @@ volumes:
   admin-uploads:
   symfony-cache:
   admin-release:
-    driver_opts:
-      type: none
-      device: $PWD/development
-      o: bind
+

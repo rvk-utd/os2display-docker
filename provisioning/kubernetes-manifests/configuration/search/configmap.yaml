@@ -1,15 +1,15 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: search-initial-config
+  name: search-config
 data:
   apikeys.json: |
     {
-      "<insert-search-api-key-here>": {
+      "<insert-search-apikey-here>": {
         "name": "AdminSearchIndex",
         "expire": 300,
         "indexes": [
-          "<insert-search-index-id-here>"
+          "<insert-lowercased-search-index-id-here>"
         ],
         "access": "rw"
       }
@@ -23,11 +23,7 @@ data:
         "password": "<insert-admin-password-here>"
       },
       "logs": {
-        "all": "logs/messages.log",
-        "info": "logs/info.log",
-        "error": "logs/error.log",
-        "debug": "logs/debug.log",
-        "socket": "logs/socket.log"
+        "mode": "console-json"
       },
       "search": {
         "hosts": [ "elasticsearch:9200" ],
@@ -38,7 +34,7 @@ data:
     }
   mappings.json: |
     {
-      "<insert-search-index-id-here>": {
+      "<insert-lowercased-search-index-id-here>": {
         "name": "AdminSearchIndex",
         "tag": "private",
         "fields": [

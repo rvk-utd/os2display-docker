@@ -15,7 +15,7 @@ spec:
         app: redis
     spec:
       containers:
-      - image: kkos2display/redis:4.0.9
+      - image: <insert-redis-image-path-here>
         imagePullPolicy: Always
         name: redis
         ports:

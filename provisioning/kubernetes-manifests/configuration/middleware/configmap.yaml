@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: middleware-initial-config
+  name: middleware-config
 data:
   apikeys.json: |
     {
@@ -14,18 +14,13 @@ data:
   config.json: |
     {
       "port": 3020,
-      "secret": "<insert-secret-here>",
+      "secret": "<insert-middleware-secret-here>",
       "logs": {
-        "all": "logs/messages.log",
-        "info": "logs/info.log",
-        "error": "logs/error.log",
-        "debug": "logs/debug.log",
-        "exception": "logs/exceptions.log",
-        "socket": "logs/socket.log"
+        "mode": "console-json"
       },
       "admin": {
-        "username": "admin",
-        "password": "<insert-admin-password-here>"
+        "username": "<insert-middleware-username-here>",
+        "password": "<insert-middleware-password-here>"
       },
       "cache": {
         "port": "6379",

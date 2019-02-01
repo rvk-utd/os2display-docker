@@ -8,7 +8,7 @@ metadata:
     certmanager.k8s.io/issuer: letsencrypt-prod
 spec:
   rules:
-    - host: admin.kkos2display.dk
+    - host: admin.<insert-environment-base-domain-here>
       http:
         paths:
           - backend:
@@ -17,5 +17,5 @@ spec:
             path: /
   tls:
     - hosts:
-        - admin.kkos2display.dk
+        - admin.<insert-environment-base-domain-here>
       secretName: admin-ingress-cert # cert-manager will populate this.

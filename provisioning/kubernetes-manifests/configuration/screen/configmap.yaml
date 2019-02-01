@@ -1,3 +1,4 @@
+apiVersion: v1
 kind: ConfigMap
 metadata:
   name: screen-config
@@ -9,12 +10,12 @@ data:
     window.config = {
       // Used to activate screen (rest API) and load resources.
       "resource": {
-        "server": "//screen.kkos2display.dk/",
+        "server": "//screen.<insert-environment-base-domain-here>/",
         "uri": 'proxy'
       },
       // Used by web-socket.
       "ws": {
-        "server": "https://screen.kkos2display.dk/"
+        "server": "https://screen.<insert-environment-base-domain-here>/"
       },
       // API key to use.
       "apikey": "<insert-middlware-apikey-here>",

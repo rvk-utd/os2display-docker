@@ -19,21 +19,7 @@ spec:
           hostnames:
             - "admin-php"
       containers:
-      - image: kkos2display/admin-nginx:0.1
-        imagePullPolicy: Always
-        name: admin-nginx
-        volumeMounts:
-        - name: config
-          mountPath: /etc/nginx/sites-enabled/admin.conf
-          subPath: admin.conf
-        - name: release
-          mountPath: /var/www
-        - name: uploads
-          mountPath: /var/www/admin/web/uploads
-        ports:
-        - name: main-port
-          containerPort: 80
-      - image: kkos2display/admin-php:0.2
+      - image: <insert-admin-php-image-path-here>
         imagePullPolicy: Always
         name: admin-php
         volumeMounts:
@@ -44,7 +30,31 @@ spec:
           subPath: parameters.yml
         - name: uploads
           mountPath: /var/www/admin/web/uploads
-      - image: kkos2display/admin-php:0.2
+        env:
+          - name: APP_ENV
+            value: "prod"
+          - name: APP_DEBUG
+            value: "0"
+      - image: <insert-admin-nginx-image-path-here>
+        imagePullPolicy: Always
+        name: admin-nginx
+        volumeMounts:
+          - name: config
+            mountPath: /etc/nginx/sites-enabled/admin.conf
+            subPath: admin.conf
+          - name: release
+            mountPath: /var/www
+          - name: uploads
+            mountPath: /var/www/admin/web/uploads
+        ports:
+          - name: main-port
+            containerPort: 80
+        env:
+          - name: APP_ENV
+            value: "prod"
+          - name: APP_DEBUG
+            value: "0"
+      - image: <insert-admin-php-image-path-here>
         imagePullPolicy: Always
         name: admin-cron
         command: ['/usr/local/bin/jobber-entrypoint.sh']
@@ -59,13 +69,14 @@ spec:
         ports:
         - name: fpm-port
           containerPort: 9000
-        hostAliases:
-          - ip: "127.0.0.1"
-            hostnames:
-              - "admin-php"
+        env:
+          - name: APP_ENV
+            value: "prod"
+          - name: APP_DEBUG
+            value: "0"
       initContainers:
       - name: init-copy-source
-        image: kkos2display/admin-release:build-3
+        image: <insert-admin-release-image-path-here>
         imagePullPolicy: Always
         command: ['sh', '-c', '/opt/init-copy-source.sh; test -d /uploads/media || mkdir /uploads/media; chown -R www-data:www-data /uploads']
         volumeMounts:
