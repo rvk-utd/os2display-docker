@@ -15,7 +15,7 @@ If you want to develop OS2Display you'll need git as well (and any additional de
 make reset-release
 ```
 
-After reset the site will be available at https://admin.<insert-docker-base-domain-here>
+After reset the site will be available at https://admin.kff-os2display.docker
 
 ## Preparing for development
 ```bash
@@ -23,7 +23,7 @@ make clone
 make reset-dev
 ```
 
-After reset the site will be available at https://admin.<insert-docker-base-domain-here>
+After reset the site will be available at https://admin.kff-os2display.docker
 
 ## Other
 See Makefile and the [documentation](documentation) for more details or feel

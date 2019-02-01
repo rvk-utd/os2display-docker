@@ -53,7 +53,7 @@ push-images: ## Push docker-images.
 	images/push.sh
 
 clone-admin: ## Do an initial clone of the admin repo.
-	git clone --branch=bbs-develop git@github.com:rvk-utd/os2display-admin.git development/admin
+	git clone --branch=kk-develop  git@github.com:kkos2/os2display-admin.git development/admin
 
 ifeq (,$(wildcard ./docker-compose.override.yml))
     dc_override =
