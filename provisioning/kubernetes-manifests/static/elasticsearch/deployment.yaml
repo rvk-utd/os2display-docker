@@ -15,7 +15,7 @@ spec:
         app: elasticsearch
     spec:
       containers:
-      - image: <insert-elasticsearch-image-path-here>
+      - image: kkos2display/elasticsearch:1.7.1-kff-0.1.0
         imagePullPolicy: Always
         name: elasticsearch
         ports:
@@ -36,7 +36,7 @@ spec:
           initialDelaySeconds: 20
       initContainers:
         - name: fix-permissions
-          image: <insert-elasticsearch-image-path-here>
+          image: kkos2display/elasticsearch:1.7.1-kff-0.1.0
           command: ["sh", "-c", "chown -R elasticsearch:elasticsearch /var/lib/elasticsearch"]
           volumeMounts:
             - name: esdata

@@ -15,7 +15,7 @@ spec:
         app: middleware
     spec:
       containers:
-      - image: <insert-middleware-image-path-here>
+      - image: kkos2display/middleware:5.0.2-console-json-logging-2-kff-0.1.0
         imagePullPolicy: Always
         name: middleware
         ports:

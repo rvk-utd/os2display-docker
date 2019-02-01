@@ -17,29 +17,29 @@ data:
         mailer_user: null
         mailer_port: 25
         mailer_password: null
-        mailer_from_email: <insert-admin-email-here>
-        mailer_from_name: <insert-admin-name-here>
+        mailer_from_email: admin@example.com
+        mailer_from_name: Admin
         locale: da
-        secret: <insert-admin-secret-here>
+        secret: Thaxoophib0iikeefei8azoju2ahtu4cheero0Ch
         debug_toolbar: true
         debug_redirects: false
         use_assetic_controller: true
-        absolute_path_to_server: 'https://admin.<insert-environment-base-domain-here>'
+        absolute_path_to_server: 'https://admin.os2displaykff.reload.dk'
         zencoder_api: ~
         sharing_host: ~
         sharing_path: ~
         sharing_apikey: ~
         sharing_enabled: false
         search_host: 'http://search:3010'
-        search_host_public: 'https://search.<insert-environment-base-domain-here>'
+        search_host_public: 'https://search.os2displaykff.reload.dk'
         search_path: /api
-        search_apikey: <insert-search-apikey-here>
-        search_index: <insert-lowercased-search-index-id-here>
+        search_apikey: a0e2c343e8c73ca2dda0728028868b4d
+        search_index: 7ce1e3e030204ac40182399be05e5c4b
         middleware_host: 'http://middleware:3020'
         middleware_path: /api
-        middleware_apikey: <insert-middelware-apikey-here>
-        site_title: '<insert-environment-title-here>'
-        version: <insert-environment-version-here>
+        middleware_apikey: 79fce1c5fae2b9eeaa4c0bf16bf33a18
+        site_title: 'OS2display - production'
+        version: prod-0.1
         itk_log_version: 1
         itk_log_error_callback: /api/error
         itk_log_log_to_console: true

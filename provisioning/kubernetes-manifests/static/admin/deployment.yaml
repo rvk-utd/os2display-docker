@@ -19,7 +19,7 @@ spec:
           hostnames:
             - "admin-php"
       containers:
-      - image: <insert-admin-php-image-path-here>
+      - image: kkos2display/admin-php:kff-0.1.0
         imagePullPolicy: Always
         name: admin-php
         volumeMounts:
@@ -35,7 +35,7 @@ spec:
             value: "prod"
           - name: APP_DEBUG
             value: "0"
-      - image: <insert-admin-nginx-image-path-here>
+      - image: kkos2display/admin-nginx:kff-0.4
         imagePullPolicy: Always
         name: admin-nginx
         volumeMounts:
@@ -54,7 +54,7 @@ spec:
             value: "prod"
           - name: APP_DEBUG
             value: "0"
-      - image: <insert-admin-php-image-path-here>
+      - image: kkos2display/admin-php:kff-0.1.0
         imagePullPolicy: Always
         name: admin-cron
         command: ['/usr/local/bin/jobber-entrypoint.sh']
@@ -76,7 +76,7 @@ spec:
             value: "0"
       initContainers:
       - name: init-copy-source
-        image: <insert-admin-release-image-path-here>
+        image: kkos2display/admin-release:kff-build-5
         imagePullPolicy: Always
         command: ['sh', '-c', '/opt/init-copy-source.sh; test -d /uploads/media || mkdir /uploads/media; chown -R www-data:www-data /uploads']
         volumeMounts:

@@ -7,7 +7,7 @@ metadata:
     certmanager.k8s.io/issuer: letsencrypt-prod
 spec:
   rules:
-    - host: screen.<insert-environment-base-domain-here>
+    - host: screen.kkos2display.dk
       http:
         paths:
           - backend:
@@ -16,5 +16,5 @@ spec:
             path: /
   tls:
     - hosts:
-        - screen.<insert-environment-base-domain-here>
+        - screen.kkos2display.dk
       secretName: screen-ingress-cert # cert-manager will populate this.
