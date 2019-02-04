@@ -15,9 +15,9 @@ help: ## Display a list of the public targets
 # targets), then strip the hash and print.
 	@grep -E -h "^\w.*:.*##" $(MAKEFILE_LIST) | sed -e 's/\(.*\):.*##\(.*\)/\1	\2/'
 
-reset-dev: _dc_compile_dev _reset-container-state ## Release-test mode: stop all containers, reset their state and start up again.
+reset-dev: _dc_compile_dev _reset-container-state ## Development-mode: stop all containers, reset their state and start up again.
 
-reset-release: _dc_compile_release _reset-container-state ## Development-mode: stop all containers, reset their state and start up again.
+reset-release: _dc_compile_release _reset-container-state ## Release-test mode: stop all containers, reset their state and start up again.
 
 up:  ## Take the whole environment up without altering the existing state of the containers.
 	docker-compose up -d --remove-orphans

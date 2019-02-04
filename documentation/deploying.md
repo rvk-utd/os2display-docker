@@ -5,7 +5,7 @@ From the root of the project run `make configure-kubectl`. You only have to do t
 This of course assumes you are logged into gcloud.
 
 ### Tag the release
-When developing for the site, most code is changed in the `development/admin` folder, where the [os2display-admin](https://github.com/rvk-utd/os2display-admin) repo is checked out. When you are done working on a feature there and it is merged to the `kk-develop` branch you need to tag it and build a release.
+When developing for the site, most code is changed in the `development/admin` folder, where the [os2display-admin](https://github.com/kkos2/os2display-admin) repo is checked out. When you are done working on a feature there and it is merged to the `kk-develop` branch you need to tag it and build a release.
 
 Assuming that you are in the `development/admin` folder:
 

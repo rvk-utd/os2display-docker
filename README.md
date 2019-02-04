@@ -10,12 +10,6 @@ To get started you need the following installed
 
 If you want to develop OS2Display you'll need git as well (and any additional development tools).
 
-## Testing an release 
-```bash
-make reset-release
-```
-
-After reset the site will be available at https://admin.kff-os2display.docker
 
 ## Preparing for development
 ```bash
@@ -24,6 +18,11 @@ make reset-dev
 ```
 
 After reset the site will be available at https://admin.kff-os2display.docker
+
+## Testing a release
+```bash
+make reset-release
+```
 
 ## Other
 See Makefile and the [documentation](documentation) for more details or feel
