@@ -3,7 +3,8 @@
 set -euxo pipefail
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-source "${SCRIPT_DIR}/_settings.sh"
+cd "${SCRIPT_DIR}"
+source "_settings.sh"
 
 # Config
 gcloud config set container/new_scopes_behavior true
@@ -13,8 +14,8 @@ gcloud services enable compute.googleapis.com --project=$PROJECT_ID
 gcloud services enable sql-component.googleapis.com --project=$PROJECT_ID
 
 # Ingress IP
-#gcloud compute addresses create $ADDRESS_NAME --region=$REGION --project=$PROJECT_ID --region=$REGION
-#gcloud compute addresses describe $ADDRESS_NAME --region $REGION --project=$PROJECT_ID --region=$REGION
+gcloud compute addresses create $ADDRESS_NAME --region=$REGION --project=$PROJECT_ID --region=$REGION
+gcloud compute addresses describe $ADDRESS_NAME --region $REGION --project=$PROJECT_ID --region=$REGION
 
 # Provision machines
 gcloud container clusters create $CLUSTER_NAME \

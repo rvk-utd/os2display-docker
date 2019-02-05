@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: middleware-initial-config
+  name: middleware-config
 data:
   apikeys.json: |
     {
-      "<insert-middleware-apikey-here>": {
+      "79fce1c5fae2b9eeaa4c0bf16bf33a18": {
         "name": "AdminMiddleware",
         "backend": "http://admin",
         "expire": 300
@@ -14,7 +14,7 @@ data:
   config.json: |
     {
       "port": 3020,
-      "secret": "<insert-secret-here>",
+      "secret": "5d25886221c75f2bccd6e126d8d8ccd9",
       "logs": {
         "all": "logs/messages.log",
         "info": "logs/info.log",
@@ -25,7 +25,7 @@ data:
       },
       "admin": {
         "username": "admin",
-        "password": "<insert-admin-password-here>"
+        "password": "thueCee4sa"
       },
       "cache": {
         "port": "6379",

@@ -5,8 +5,22 @@ bold=$(tput bold)
 normal=$(tput sgr0)
 
 cd /var/www/admin
-composer install
-chown -R www-data:www-data app/cache app/logs
+
+# Release-builds has a populated vendor-folder, so no need to do an install.
+if [[ ! -f /var/www/admin/.release ]]; then
+  echo "Live source mount - doing a composer install"
+  composer install
+else
+  echo "Release-build detected, skipping composer install"
+fi
+
+if [[ ! -d web/uploads/media ]]; then
+  mkdir -p web/uploads/media
+fi
+
+chown -R www-data:www-data app/cache app/logs web/uploads
+chmod -R u+rw web/uploads
+
 gosu www-data app/console doctrine:migrations:migrate --no-interaction
 gosu www-data app/console os2display:core:templates:load
 gosu www-data app/console doctrine:query:sql "UPDATE ik_screen_templates SET enabled=1;"

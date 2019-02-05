@@ -1,3 +1,4 @@
+apiVersion: v1
 kind: ConfigMap
 metadata:
   name: screen-config
@@ -17,7 +18,7 @@ data:
         "server": "https://screen.kkos2display.dk/"
       },
       // API key to use.
-      "apikey": "<insert-middlware-apikey-here>",
+      "apikey": "79fce1c5fae2b9eeaa4c0bf16bf33a18",
       // If cookie is secure it's only send over https.
       "cookie": {
         "secure": true

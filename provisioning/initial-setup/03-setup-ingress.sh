@@ -3,7 +3,8 @@
 set -euxo pipefail
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-source "${SCRIPT_DIR}/_settings.sh"
+cd "${SCRIPT_DIR}"
+source "_settings.sh"
 
 helm install \
     --name nginx-ingress stable/nginx-ingress \

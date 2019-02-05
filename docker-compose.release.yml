@@ -1,0 +1,43 @@
+# Main docker-compose file for the "release mode"
+# When in release mode we hook a admin_release image up to nginx/fpm instead
+# of a local development environment.
+version: "3.7"
+services:
+  # Ensure we don't start any services that dependes on admin_release to be
+  # populated too early.
+  admin-nginx:
+    depends_on:
+      - middleware
+      - search
+      - admin_release
+    environment:
+      VIRTUAL_HOST: admin.${DOCKER_BASE_DOMAIN}
+      APP_ENV: "prod"
+      APP_DEBUG: "0"
+
+  admin-php:
+    depends_on:
+      - admin_release
+    environment:
+      PHP_IDE_CONFIG: "serverName=admin.${DOCKER_BASE_DOMAIN}"
+      APP_ENV: "prod"
+      APP_DEBUG: "0"
+
+  admin-cron:
+    depends_on:
+      - admin_release
+    environment:
+      APP_ENV: "prod"
+      APP_DEBUG: "0"
+
+  # Contains the latest source-release.
+  # It will get admin-release mounted as the first container, and copy the
+  # release into it.
+  admin_release:
+    image: ${MAIN_IMAGE_REPOSITORY}/admin-release:${ADMIN_RELEASE_TAG}
+    volumes:
+      - admin-release:/release
+    command: /opt/init-copy-source.sh
+
+volumes:
+  admin-release:
