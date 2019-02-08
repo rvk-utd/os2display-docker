@@ -6,4 +6,4 @@ if [[ ! -d /var/jobber/0 ]] ; then
   mkdir -p /var/jobber/0
 fi
 
-/usr/local/libexec/jobberrunner -u /var/jobber/0/cmd.sock /root/.jobber
+/usr/libexec/jobberrunner -u /var/jobber/0/cmd.sock /root/.jobber

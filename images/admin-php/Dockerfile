@@ -3,29 +3,15 @@
 # Jobber: A cron-runner that executes the cron-hooks for symfony every minute.
 ARG os2display_image_repository=os2display
 
-# Intermediate step that builds a pinned version of jobber that supports output
-# to std-out. Can be replaced with a fetch of a official binary when version
-# 1.4 of Jobber is released.
-FROM golang:latest as builder
-RUN apt-get update
-RUN apt-get install -y rsync
-
-RUN mkdir -p src/github.com/dshearer
-
-WORKDIR src/github.com/dshearer
-RUN git clone https://github.com/dshearer/jobber.git
-
-WORKDIR jobber
-RUN git checkout 260c8df30802384304e067ee52de2942b524326b
-RUN make check
-RUN make install DESTDIR=/
-
 # Main image.
 FROM ${os2display_image_repository}/php-base:latest
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
       php5.6-fpm \
     && \
+    curl -Lo /tmp/jobber_1.4.0-pr.1-1_amd64_ubuntu16.deb https://github.com/dshearer/jobber/releases/download/v1.4.0-pr.1/jobber_1.4.0-pr.1-1_amd64_ubuntu16.deb && \
+    dpkg -i /tmp/jobber_1.4.0-pr.1-1_amd64_ubuntu16.deb && \
+    rm /tmp/jobber_1.4.0-pr.1-1_amd64_ubuntu16.deb && \
     apt-get clean && \
     rm -rf \
       /var/lib/apt/lists/* \
@@ -41,10 +27,6 @@ WORKDIR /var/www/admin
 RUN test -d /run/php || mkdir /run/php
 
 # Pull in docker from the build step.
-RUN mkdir -p /usr/local/libexec/
-COPY --from=builder /usr/local/libexec/jobbermaster /usr/local/libexec/jobbermaster
-COPY --from=builder /usr/local/libexec/jobberrunner /usr/local/libexec/jobberrunner
-COPY --from=builder /usr/local/bin/jobber /usr/local/bin/jobber
 COPY files/.jobber /root/
 RUN chmod a-rwx /root/.jobber && chmod u+rw /root/.jobber
 
