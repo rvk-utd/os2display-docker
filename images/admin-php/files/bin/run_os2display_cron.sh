@@ -14,4 +14,5 @@ fi
 
 cd /var/www/admin
 echo "running in $APP_ENV"
-APP_ENV=${APP_ENV} gosu www-data app/console os2display:core:cron
+# We pipe stderr to stdout as jobber won't log stderr.
+APP_ENV=${APP_ENV} gosu www-data app/console os2display:core:cron 2>&1
