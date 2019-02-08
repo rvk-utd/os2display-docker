@@ -17,6 +17,11 @@ COPY start_redis.sh /opt/redis
 COPY config/redis.conf /opt/redis/
 RUN chmod +x /opt/redis/start_redis.sh
 
+RUN mkdir /data && chown redis:redis /data
+
+VOLUME /data
+WORKDIR /data
+
 CMD ["/opt/redis/start_redis.sh"]
 
 EXPOSE 6379
