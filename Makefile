@@ -98,7 +98,7 @@ _reset-container-state:
 #        before invoking _docker-init-environment. Until then we leave a sleep
 #        here
 	sleep 5
-	docker-compose exec admin-php bash -c "wait-for-it -t 60 admin-db:3306 && /opt/development/scripts/_docker-init-environment.sh"
+	docker-compose exec admin-php bash -c "wait-for-it -t 60 admin-db:3306 && wait-for-it -t 60 elasticsearch:9200 && /opt/development/scripts/_docker-init-environment.sh"
 
 _dc_compile_release:
 	docker-compose -f docker-compose.common.yml -f docker-compose.release.yml config > docker-compose.yml
