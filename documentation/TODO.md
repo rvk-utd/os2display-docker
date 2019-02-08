@@ -9,12 +9,8 @@ issues or jira-tickets.s
 * Improve documentation on how to get started as a developer.
 
 ## Docker
-* Switch to a offical Redis image with persistence.
-* Reconfigure php to use a persisted session-store (a volume) to let sessions 
-  survive a release.
 * Store secrets in Secrets and use the configmaps as templates, this way we 
   could avoid having to do any changes to our configmaps during environment-
   setup
 * Have Nginx and related containers log the remote client-ip if possible
-* Replace the custom redis image with an official.
-* Have redis persist state to disk to survive releases. 
+* Consider official images for Elasticsearch and Redis.
