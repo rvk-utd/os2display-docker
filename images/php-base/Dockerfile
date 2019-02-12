@@ -18,6 +18,7 @@ RUN apt-get update && \
       php5.6-zip \
       imagemagick \
       git \
+      patch \
     && \
     # No plans on adding any other repos.
     apt-get autoremove --purge -y software-properties-common && \
@@ -37,3 +38,4 @@ RUN curl -o /tmp/composer-installer https://getcomposer.org/installer && \
   php -r "unlink('/tmp/composer-installer');" && \
   php -r "unlink('/tmp/composer-installer.sig');"
 RUN composer global require hirak/prestissimo
+RUN composer global require rubenrua/symfony-clean-tags-composer-plugin
