@@ -10,7 +10,6 @@ To get started you need the following installed
 
 If you want to develop OS2Display you'll need git as well (and any additional development tools).
 
-
 ## Preparing for development
 ```bash
 make clone
