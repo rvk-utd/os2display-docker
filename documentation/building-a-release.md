@@ -17,4 +17,4 @@ Now `cd` to the root of this repo and:
 3. If you feel like it you can now test the release by running `make reset-release` from the root of the project
 4. `make push-release`
 
-You are now ready to deploy your release. Go to the [hosting environment](https://github.com/kkos2/os2display-hosting-environments/documentation/deploying.md) repo to see docs for deployment.
+You are now ready to deploy your release. Go to the [hosting environment](https://github.com/kkos2/os2display-hosting-environments/blob/master/documentation/deploying.md) repo to see docs for deployment.
