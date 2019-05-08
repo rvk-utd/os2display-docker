@@ -19,6 +19,14 @@ services:
       APP_ENV: "dev"
       APP_DEBUG: "1"
 
+  gulp:
+    image: node:8.16.0-slim
+    volumes:
+      - ./development/admin/src/kkos2-display-bundle/:/app
+      - ./development/admin/vendor/reload/os2display-slide-tools/:/vendor/reload/os2display-slide-tools
+    working_dir: /app
+    command: sh -c "yarn && yarn run gulp"
+
 volumes:
   admin-release:
     driver_opts:
