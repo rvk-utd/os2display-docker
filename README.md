@@ -2,19 +2,15 @@
 
 The repository contains a Docker setup for running locally and images for running on production.
 
-To get started you need the following installed
-- Docker
-- Docker compose
-- Dory, dnsmasq, or another project that can provide access to the containers 
-  via the `VIRTUAL_HOST` environments-specified in docker-compose.
+## Development
 
-If you want to develop OS2Display you'll need git as well (and any additional development tools).
-
-## Preparing for development
-```bash
-make clone
-make reset-dev
-```
+To get started you need the following:
+1. Install [Docker](https://docs.docker.com/install/)
+2. Install [Docker Compose](https://docs.docker.com/compose/install/)
+3. Install [Dory](https://github.com/FreedomBen/dory). - Something similiar will do. dnsmasq, or another project that can provide access to the containers via the `VIRTUAL_HOST` environments-specified in docker-compose.
+4. `dory up`
+5. `make clone-admin`
+6. `make reset-dev`
 
 After reset the site will be available at https://admin.kff-os2display.docker
 
