@@ -55,6 +55,14 @@ push-images: ## Push docker-images.
 clone-admin: ## Do an initial clone of the admin repo.
 	git clone --branch=kk-develop  git@github.com:kkos2/os2display-admin.git development/admin
 
+run-gulp:
+	docker run \
+		-v $(PWD)/development/admin/src/kkos2-display-bundle/:/app \
+		-v $(PWD)/development/admin/vendor/reload/os2display-slide-tools/:/vendor/reload/os2display-slide-tools \
+		-w /app \
+		node:8.16.0-slim \
+		sh -c "yarn && yarn run gulp"
+
 ifeq (,$(wildcard ./docker-compose.override.yml))
     dc_override =
 else

@@ -11,6 +11,10 @@ To get started you need the following:
 4. `dory up`
 5. `make clone-admin`
 6. `make reset-dev`
+7. `make run-gulp`
+
+When you have made changes to slides or screens you might want to run `make run-gulp`
+again.
 
 After reset the site will be available at https://admin.kff-os2display.docker
 
