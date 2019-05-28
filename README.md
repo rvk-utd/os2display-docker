@@ -16,7 +16,7 @@ To get started you need the following:
 When you have made changes to slides or screens you might want to run `make run-gulp`
 again.
 
-After reset the site will be available at https://admin.kff-os2display.docker
+After reset the site will be available at https://admin.reload-os2display.docker
 
 ## Testing a release
 ```bash
