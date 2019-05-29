@@ -14,12 +14,27 @@ else
   echo "Release-build detected, skipping composer install"
 fi
 
+# Set ownership and permissions if we don't have write-permission.
+# We do this a bit more careful in order to support the situation where the
+# codebase is mounted via nfs that will show a "wrong" ownership, still allow
+# us to write, but will reject an attempt to change permission. In this 
+# situation it is important to actually test whether we can write, and then
+# skip the chown/chmod alltogether if we can.
+function ensure_writable {
+  TEST_PATH=$1
+  if ! gosu www-data test -w app/cache; then
+    chown -R www-data:www-data "${TEST_PATH}"
+    chmod -R u+rw "${TEST_PATH}s"
+  fi
+}
+
+for TEST_PATH in app/cache app/log web/uploads      ; do
+  ensure_writable "${TEST_PATH}"
+done
+
 if [[ ! -d web/uploads/media ]]; then
   mkdir -p web/uploads/media
 fi
-
-chown -R www-data:www-data app/cache app/logs web/uploads
-chmod -R u+rw web/uploads
 
 gosu www-data app/console doctrine:migrations:migrate --no-interaction
 gosu www-data app/console os2display:core:templates:load

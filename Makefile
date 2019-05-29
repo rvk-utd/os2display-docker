@@ -17,6 +17,8 @@ help: ## Display a list of the public targets
 
 reset-dev: _dc_compile_dev _reset-container-state ## Development-mode: stop all containers, reset their state and start up again.
 
+reset-dev-nfs: _dc_compile_dev_nfs _reset-container-state ## Development-mode with NFS: stop all containers, reset their state and start up again.
+
 reset-release: _dc_compile_release _reset-container-state ## Release-test mode: stop all containers, reset their state and start up again.
 
 up:  ## Take the whole environment up without altering the existing state of the containers.
@@ -116,6 +118,9 @@ _dc_compile_release:
 
 _dc_compile_dev:
 	docker-compose -f docker-compose.common.yml -f docker-compose.development.yml config > docker-compose.yml
+
+_dc_compile_dev_nfs:
+	docker-compose -f docker-compose.common.yml -f docker-compose.development.yml -f docker-compose.development.nfs.yml $(dc_override) config > docker-compose.yml
 
 .PHONY: help reset-dev reset-release up stop logs build-iamges build-release push-release clone-admin run-cron load-templates cc xdebug configure-kubectl _reset-container-state _dc_compile_release _dc_compile_dev
 
