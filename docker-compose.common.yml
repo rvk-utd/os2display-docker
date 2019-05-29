@@ -4,7 +4,7 @@ services:
 
   # Hosts static requests to admin and proxies dynamic requests to admin-php.
   admin-nginx:
-    image: ${MAIN_IMAGE_REPOSITORY}/admin-nginx:${ADMIN_NGINX_BUILD_TAG}
+    image: ${MAIN_IMAGE_REPOSITORY}/os2display-admin-nginx:${ADMIN_NGINX_BUILD_TAG}
     ports:
       - 80
     volumes:
@@ -20,7 +20,7 @@ services:
       VIRTUAL_HOST: admin.${DOCKER_BASE_DOMAIN}
 
   admin-php:
-    image: ${MAIN_IMAGE_REPOSITORY}/admin-php:${ADMIN_PHP_BUILD_TAG}
+    image: ${MAIN_IMAGE_REPOSITORY}/os2display-admin-php:${ADMIN_PHP_BUILD_TAG}
     volumes:
       - admin-release:/var/www
       - admin-uploads:/var/www/admin/web/uploads
@@ -29,7 +29,7 @@ services:
       - ./development/scripts:/opt/development/scripts
 
   admin-cron:
-    image: ${MAIN_IMAGE_REPOSITORY}/admin-php:${ADMIN_PHP_BUILD_TAG}
+    image: ${MAIN_IMAGE_REPOSITORY}/os2display-admin-php:${ADMIN_PHP_BUILD_TAG}
     volumes:
       - admin-release:/var/www
       - admin-uploads:/var/www/admin/web/uploads
@@ -39,12 +39,12 @@ services:
     command: jobber-entrypoint.sh
 
   elasticsearch:
-    image: ${MAIN_IMAGE_REPOSITORY}/elasticsearch:${ELASTICSEARCH_SOURCE_TAG}-${ELASTICSEARCH_BUILD_TAG}
+    image: ${MAIN_IMAGE_REPOSITORY}/os2display-elasticsearch:${ELASTICSEARCH_SOURCE_TAG}-${ELASTICSEARCH_BUILD_TAG}
     volumes:
       - es-data:/var/lib/elasticsearch
 
   search:
-    image: ${MAIN_IMAGE_REPOSITORY}/search:${SEARCH_SOURCE_TAG}-${SEARCH_BUILD_TAG}
+    image: ${MAIN_IMAGE_REPOSITORY}/os2display-search:${SEARCH_SOURCE_TAG}-${SEARCH_BUILD_TAG}
     ports:
       - 3010
     environment:
@@ -53,10 +53,10 @@ services:
       - elasticsearch
 
   redis:
-    image: ${MAIN_IMAGE_REPOSITORY}/redis:${REDIS_SOURCE_TAG}-${REDIS_BUILD_TAG}
+    image: ${MAIN_IMAGE_REPOSITORY}/os2display-redis:${REDIS_SOURCE_TAG}-${REDIS_BUILD_TAG}
 
   middleware:
-    image: ${MAIN_IMAGE_REPOSITORY}/middleware:${MIDDLEWARE_SOURCE_TAG}-${MIDDLEWARE_BUILD_TAG}
+    image: ${MAIN_IMAGE_REPOSITORY}/os2display-middleware:${MIDDLEWARE_SOURCE_TAG}-${MIDDLEWARE_BUILD_TAG}
     ports:
       - 3020
     environment:
@@ -65,7 +65,7 @@ services:
       - redis
 
   screen:
-    image: ${MAIN_IMAGE_REPOSITORY}/screen:${SCREEN_SOURCE_TAG}-${SCREEN_BUILD_TAG}
+    image: ${MAIN_IMAGE_REPOSITORY}/os2display-screen:${SCREEN_SOURCE_TAG}-${SCREEN_BUILD_TAG}
     ports:
       - 80
     environment:
@@ -97,7 +97,7 @@ services:
   # to know that the container needs to be removed when we switch from release-
   # to dev-mode.
   admin_release:
-    image: ${MAIN_IMAGE_REPOSITORY}/admin-release:${ADMIN_RELEASE_TAG}
+    image: ${MAIN_IMAGE_REPOSITORY}/os2display-admin-release:${ADMIN_RELEASE_TAG}
 
 volumes:
   es-data:

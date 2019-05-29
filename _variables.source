@@ -1,5 +1,5 @@
 # Various variables used during build and local docker-supported development.
-MAIN_IMAGE_REPOSITORY=eu.gcr.io/reload-os2display
+MAIN_IMAGE_REPOSITORY=reload
 
 DOCKER_BASE_DOMAIN=reload-os2display.docker
 
