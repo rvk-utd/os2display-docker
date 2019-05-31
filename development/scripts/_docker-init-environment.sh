@@ -9,7 +9,7 @@ cd /var/www/admin
 # Release-builds has a populated vendor-folder, so no need to do an install.
 if [[ ! -f /var/www/admin/.release ]]; then
   echo "Live source mount - doing a composer install"
-  composer install
+  gosu www-data composer install
 else
   echo "Release-build detected, skipping composer install"
 fi
@@ -40,7 +40,7 @@ gosu www-data app/console doctrine:migrations:migrate --no-interaction
 gosu www-data app/console os2display:core:templates:load
 gosu www-data app/console doctrine:query:sql "UPDATE ik_screen_templates SET enabled=1;"
 gosu www-data app/console doctrine:query:sql "UPDATE ik_slide_templates SET enabled=1;"
-app/console fos:user:create admin admin@example.com admin --super-admin || true
+gosu www-data app/console fos:user:create admin admin@example.com admin --super-admin || true
 
 # TODO - only do this if the indexes has not already been enabled.
 # Initialize the search index
