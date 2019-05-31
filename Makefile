@@ -57,13 +57,13 @@ push-images: ## Push docker-images.
 clone-admin: ## Do an initial clone of the admin repo.
 	git clone --branch=reload-develop  git@github.com:reload/os2display-admin.git development/admin
 
-run-gulp:
-	docker run \
-		-v $(PWD)/development/admin/src/kkos2-display-bundle/:/app \
-		-v $(PWD)/development/admin/vendor/reload/os2display-slide-tools/:/vendor/reload/os2display-slide-tools \
-		-w /app \
-		node:8.16.0-slim \
-		sh -c "yarn && yarn run gulp"
+# Add this make-target if you have a custom bundle you want to run gulp against.
+# run-gulp:
+# 	docker run \
+# 		-v $(PWD)/development/admin/src/my-custom-bundle/:/app \
+# 		-w /app \
+# 		node:8.16.0-slim \
+# 		sh -c "yarn && yarn run gulp"
 
 ifeq (,$(wildcard ./docker-compose.override.yml))
     dc_override =
@@ -73,9 +73,6 @@ endif
 run-cron: ## Run Cron
 # Differentiate how to run composer depending on whether we have an override.
 	docker-compose -f docker-compose.yml $(dc_override) run --rm admin-cron run_os2display_cron.sh
-
-gulp: ## Run gulp to build assets for kkos2-display-bundle
-	docker-compose run gulp
 
 load-templates: ## Reload templates
 	docker-compose exec admin-php app/console os2display:core:templates:load
