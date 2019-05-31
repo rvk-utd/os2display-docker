@@ -1,0 +1,11 @@
+# Mount a live checkout as admin-release.
+version: "3.7"
+
+volumes:
+  # Mount release-dir via NFS which can be necessary for docker-for-mac.
+  admin-release:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
+      device: ":$PWD/development"
