@@ -25,7 +25,7 @@ services:
       - admin-release:/var/www
       - admin-uploads:/var/www/admin/web/uploads
       - symfony-cache:/var/www/admin/app/cache
-      - ./development/config/parameters.yml:/var/www/admin/app/config/parameters.yml
+      - ./development/config/admin/parameters.yml:/var/www/admin/app/config/parameters.yml
       - ./development/scripts:/opt/development/scripts
 
   admin-cron:
@@ -34,7 +34,7 @@ services:
       - admin-release:/var/www
       - admin-uploads:/var/www/admin/web/uploads
       - symfony-cache:/var/www/admin/app/cache
-      - ./development/config/parameters.yml:/var/www/admin/app/config/parameters.yml
+      - ./development/config/admin/parameters.yml:/var/www/admin/app/config/parameters.yml
       - ./development/scripts:/opt/development/scripts
     command: jobber-entrypoint.sh
 
@@ -68,6 +68,8 @@ services:
     image: ${MAIN_IMAGE_REPOSITORY}/os2display-screen:${SCREEN_SOURCE_TAG}-${SCREEN_BUILD_TAG}
     ports:
       - 80
+    volumes:
+      - './development/config/screen/config.js:/var/www/screen/app/config.js'
     environment:
       VIRTUAL_HOST: screen.${DOCKER_BASE_DOMAIN}
     # We proxy these so need them to exist.
