@@ -22,19 +22,18 @@ fi
 # skip the chown/chmod alltogether if we can.
 function ensure_writable {
   TEST_PATH=$1
-  if ! gosu www-data test -w app/cache; then
+  if [[ ! -d "${TEST_PATH}" ]]; then
+    mkdir -p "${TEST_PATH}"
+  fi
+  if ! gosu www-data test -w "${TEST_PATH}"; then
     chown -R www-data:www-data "${TEST_PATH}"
-    chmod -R u+rw "${TEST_PATH}s"
+    chmod -R u+rw "${TEST_PATH}"
   fi
 }
 
-for TEST_PATH in app/cache app/log web/uploads      ; do
+for TEST_PATH in app/cache app/log web/uploads web/uploads/media; do
   ensure_writable "${TEST_PATH}"
 done
-
-if [[ ! -d web/uploads/media ]]; then
-  mkdir -p web/uploads/media
-fi
 
 gosu www-data app/console doctrine:migrations:migrate --no-interaction
 gosu www-data app/console os2display:core:templates:load

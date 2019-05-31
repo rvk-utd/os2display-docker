@@ -15,11 +15,11 @@ help: ## Display a list of the public targets
 # targets), then strip the hash and print.
 	@grep -E -h "^\w.*:.*##" $(MAKEFILE_LIST) | sed -e 's/\(.*\):.*##\(.*\)/\1	\2/'
 
-reset-dev: _dc_compile_dev _reset-container-state ## Development-mode: stop all containers, reset their state and start up again.
+reset-dev: _dc_compile_dev _reset-container-state _snow_notes ## Development-mode: stop all containers, reset their state and start up again.
 
-reset-dev-nfs: _dc_compile_dev_nfs _reset-container-state ## Development-mode with NFS: stop all containers, reset their state and start up again.
+reset-dev-nfs: _dc_compile_dev_nfs _reset-container-state _snow_notes ## Development-mode with NFS: stop all containers, reset their state and start up again.
 
-reset-release: _dc_compile_release _reset-container-state ## Release-test mode: stop all containers, reset their state and start up again.
+reset-release: _dc_compile_release _reset-container-state _snow_notes ## Release-test mode: stop all containers, reset their state and start up again.
 
 up:  ## Take the whole environment up without altering the existing state of the containers.
 	docker-compose up -d --remove-orphans
@@ -41,18 +41,6 @@ $(diagrams): documentation/diagrams/%.png : documentation/diagrams/%.plantuml
 	@echo '$< -> $@'
 	rm -f $@
 	cat $< | docker run --rm -i think/plantuml -tpng > $@
-
-build-images: ## Build docker-images.
-	images/build.sh
-
-build-release: ## Build a release and tag it by TAG
-	images/build-release.sh $(ADMIN_RELEASE_TAG)
-
-push-release: ## Push a release specified by TAG
-	images/push-release.sh $(ADMIN_RELEASE_TAG)
-
-push-images: ## Push docker-images.
-	images/push.sh
 
 clone-admin: ## Do an initial clone of the admin repo.
 	git clone --branch=reload-develop  git@github.com:reload/os2display-admin.git development/admin
@@ -119,5 +107,13 @@ _dc_compile_dev:
 _dc_compile_dev_nfs:
 	docker-compose -f docker-compose.common.yml -f docker-compose.development.yml -f docker-compose.development.nfs.yml $(dc_override) config > docker-compose.yml
 
-.PHONY: help reset-dev reset-release up stop logs build-iamges build-release push-release clone-admin run-cron load-templates cc xdebug configure-kubectl _reset-container-state _dc_compile_release _dc_compile_dev
+_show_notes:
+	$(info OS2display now is available via the URLs below)
+	$(info )
+	$(info NOTICE: You should visit each url at least once and accept the self-signed https certificate)
+	$(info - Admin: https://admin.$(DOCKER_BASE_DOMAIN))
+	$(info - Screen: https://screen.$(DOCKER_BASE_DOMAIN))
+	$(info - Search: https://search.$(DOCKER_BASE_DOMAIN))
+
+.PHONY: help reset-dev reset-dev-nfs reset-release up stop logs clone-admin run-cron load-templates cc xdebug configure-kubectl _reset-container-state _dc_compile_release _dc_compile_dev _show_notes
 
