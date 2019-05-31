@@ -4,7 +4,7 @@
 window.config = {
   // Used to activate screen (rest API) and load resources.
   "resource": {
-    "server": "//screen.reload-os2display.docker/",
+    "server": "//screen.bbs-os2display.docker/",
     "uri": 'proxy'
   },
   // Used by web-socket.
