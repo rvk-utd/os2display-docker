@@ -10,7 +10,7 @@ To get started you need the following:
 3. Install [Dory](https://github.com/FreedomBen/dory). - Something similiar will do. dnsmasq, or another project that can provide access to the containers via the `VIRTUAL_HOST` environments-specified in docker-compose.
 4. `dory up`
 5. `make clone-admin`
-6. `make reset-dev` or `make-reset-dev-nfs` (see below)
+6. `make reset-dev` or `make reset-dev-nfs` (see below)
 7. `make run-gulp`
 
 When you have made changes to slides or screens you might want to run `make run-gulp`
