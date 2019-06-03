@@ -31,7 +31,7 @@ function ensure_writable {
   fi
 }
 
-for TEST_PATH in app/cache app/log web/uploads web/uploads/media; do
+for TEST_PATH in app/cache app/log web/uploads web/uploads/media var; do
   ensure_writable "${TEST_PATH}"
 done
 
