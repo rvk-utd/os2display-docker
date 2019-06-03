@@ -43,7 +43,7 @@ $(diagrams): documentation/diagrams/%.png : documentation/diagrams/%.plantuml
 	cat $< | docker run --rm -i think/plantuml -tpng > $@
 
 clone-admin: ## Do an initial clone of the admin repo.
-	git clone --branch=reload-develop  git@github.com:reload/os2display-admin.git development/admin
+	git clone --branch=bbs-develop  git@github.com:rvk-utd/os2display-admin.git development/admin
 
 run-gulp: ## Generate assets for the custom bundle
 	docker run \
