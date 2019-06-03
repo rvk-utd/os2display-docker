@@ -35,11 +35,11 @@ for TEST_PATH in app/cache app/log web/uploads web/uploads/media; do
   ensure_writable "${TEST_PATH}"
 done
 
-gosu www-data app/console doctrine:migrations:migrate --no-interaction
-gosu www-data app/console os2display:core:templates:load
-gosu www-data app/console doctrine:query:sql "UPDATE ik_screen_templates SET enabled=1;"
-gosu www-data app/console doctrine:query:sql "UPDATE ik_slide_templates SET enabled=1;"
-gosu www-data app/console fos:user:create admin admin@example.com admin --super-admin || true
+gosu www-data /opt/development/scripts/console.sh doctrine:migrations:migrate --no-interaction
+gosu www-data /opt/development/scripts/console.sh os2display:core:templates:load
+gosu www-data /opt/development/scripts/console.sh doctrine:query:sql "UPDATE ik_screen_templates SET enabled=1;"
+gosu www-data /opt/development/scripts/console.sh doctrine:query:sql "UPDATE ik_slide_templates SET enabled=1;"
+gosu www-data /opt/development/scripts/console.sh fos:user:create admin admin@example.com admin --super-admin || true
 
 # TODO - only do this if the indexes has not already been enabled.
 # Initialize the search index
