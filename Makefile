@@ -47,9 +47,8 @@ clone-admin: ## Do an initial clone of the admin repo.
 
 run-gulp: ## Generate assets for the custom bundle
 	docker run \
-		-v $(PWD)/development/admin/src/rvk-custom-os2display/:/app \
-		-v $(PWD)/development/admin/vendor/reload/os2display-slide-tools/:/vendor/reload/os2display-slide-tools \
-		-w /app \
+		-v $(PWD)/development/admin/:/app \
+		-w /app/src/rvk-custom-os2display/ \
 		node:8.16.0-slim \
 		sh -c "yarn && yarn run gulp"
 
