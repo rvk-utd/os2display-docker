@@ -62,12 +62,10 @@ run-cron: ## Run Cron
 	docker-compose -f docker-compose.yml $(dc_override) run --rm admin-cron run_os2display_cron.sh
 
 load-templates: ## Reload templates
-	docker-compose exec admin-php /opt/development/scripts/console.sh os2display:core:templates:load
-	docker-compose exec admin-php chown -R www-data:www-data app/cache
+	docker-compose exec admin-php gosu www-data /opt/development/scripts/console.sh os2display:core:templates:load
 
 cc: ## Clear the admin cache
-	docker-compose exec admin-php /opt/development/scripts/console.sh cache:clear
-	docker-compose exec admin-php chown -R www-data:www-data app/cache
+	docker-compose exec admin-php gosu www-data /opt/development/scripts/console.sh cache:clear
 
 xdebug: ## Start xdebug for the admin-php container.
 	docker-compose exec admin-php xdebug-start
