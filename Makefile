@@ -54,17 +54,19 @@ clone-admin: ## Do an initial clone of the admin repo.
 
 # Add this make-target if you have a custom bundle you want to run gulp against.
 # run-gulp:
-# 	docker run \
-# 		-v $(PWD)/development/admin/src/my-custom-bundle/:/app \
-# 		-w /app \
-# 		node:8.16.0-slim \
-# 		sh -c "yarn && yarn run gulp"
+#	docker run \
+#		-ti \
+#		-v $(PWD)/development/admin/:/app \
+#		-w /app/src/my-custom-bundle/ \
+#		node:8.16.0-slim \
+#		sh -c "yarn && yarn run gulp"
 
 ifeq (,$(wildcard ./docker-compose.override.yml))
     dc_override =
 else
     dc_override = -f docker-compose.override.yml
 endif
+
 run-cron: ## Run Cron
 # Differentiate how to run composer depending on whether we have an override.
 	docker-compose -f docker-compose.yml $(dc_override) run --rm admin-cron run_os2display_cron.sh
