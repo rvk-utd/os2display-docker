@@ -9,6 +9,13 @@
 include _variables.source
 export
 
+# Mount database-dump if present.
+ifeq (,$(wildcard development/state-import/admin.sql.gz))
+DB_DUMP = ./docker-compose.yml:/tmp/ignore-me:ro
+else
+DB_DUMP = ./development/state-import/admin.sql.gz:/docker-entrypoint-initdb.d/admin.sql.gz:ro
+endif
+
 help: ## Display a list of the public targets
 # Find lines that starts with a word-character, contains a colon and then a
 # doublehash (underscores are not word-characters, so this excludes private

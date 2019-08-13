@@ -40,6 +40,15 @@ gosu www-data /opt/development/scripts/console.sh os2display:core:templates:load
 gosu www-data /opt/development/scripts/console.sh doctrine:query:sql "UPDATE ik_screen_templates SET enabled=1;"
 gosu www-data /opt/development/scripts/console.sh doctrine:query:sql "UPDATE ik_slide_templates SET enabled=1;"
 gosu www-data /opt/development/scripts/console.sh fos:user:create admin admin@example.com admin --super-admin || true
+# Import upload backup.
+UPLOADS_IMPORT_FILE=/opt/development/state-import/uploads.tar.gz
+if [[ -f "${UPLOADS_IMPORT_FILE}" ]]; then
+  echo "* Importing file state"
+  rm -fr web/uploads/*
+  tar -C web/uploads -zx --strip-components=1 -f "${UPLOADS_IMPORT_FILE}"
+  ensure_writable web/uploads
+fi
+
 
 # TODO - only do this if the indexes has not already been enabled.
 # Initialize the search index

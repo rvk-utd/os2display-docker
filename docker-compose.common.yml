@@ -27,6 +27,7 @@ services:
       - symfony-cache:/var/www/admin/app/cache
       - ./development/admin/docker/parameters.yml:/var/www/admin/app/config/parameters.yml
       - ./development/scripts:/opt/development/scripts
+      - ./development/state-import:/opt/development/state-import
 
   admin-cron:
     image: ${MAIN_IMAGE_REPOSITORY}/os2display-admin-php:${ADMIN_PHP_BUILD_TAG}
@@ -86,6 +87,7 @@ services:
       MYSQL_PASSWORD: os2display
     volumes:
       - db-data:/var/lib/mysql
+      - ${DB_DUMP}
 
   mailhog:
     image: mailhog/mailhog
