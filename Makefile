@@ -92,6 +92,14 @@ xdebug: ## Start xdebug for the admin-php container.
 configure-kubectl: ## Configure local kubectl with a context for our cluster.
 	provisioning/initial-setup/configure-kubectl.sh
 
+fetch-state: ## Fetch state from a live environment specified via STATE_FETCH_NAMESPACE
+	kubectl config current-context
+	@echo "Is the context above correct? [y/N] " && read ans && [ $${ans:-N} == y ]
+	kubectl -n ${STATE_FETCH_NAMESPACE} exec $(shell kubectl get pods -l app=admin-db -o jsonpath="{.items[0].metadata.name}") -- sh -c "mysqldump -u root -proot os2display | gzip" > development/state-import/admin.sql.gz
+	kubectl -n ${STATE_FETCH_NAMESPACE} cp -c admin-php $(shell kubectl get pods -l app=admin -o jsonpath="{.items[0].metadata.name}"):/var/www/admin/web/uploads development/state-import/uploads
+	tar -vC development/state-import -czf development/state-import/uploads.tar.gz uploads
+	rm -fr development/state-import/uploads
+
 # =============================================================================
 # HELPERS
 # =============================================================================
