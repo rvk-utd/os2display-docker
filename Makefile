@@ -89,8 +89,6 @@ cc: ## Clear the admin cache
 xdebug: ## Start xdebug for the admin-php container.
 	docker-compose exec admin-php xdebug-start
 
-configure-kubectl: ## Configure local kubectl with a context for our cluster.
-	provisioning/initial-setup/configure-kubectl.sh
 
 fetch-state: ## Fetch state from a live environment specified via STATE_FETCH_NAMESPACE
 	kubectl config current-context
