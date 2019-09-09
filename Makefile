@@ -89,6 +89,8 @@ cc: ## Clear the admin cache
 xdebug: ## Start xdebug for the admin-php container.
 	docker-compose exec admin-php xdebug-start
 
+update-composer-lock: ## Update composer.lock, eg. after a patch has been added.
+	docker-compose run -e COMPOSER_MEMORY_LIMIT=-1 admin-php composer update --lock --no-scripts
 
 fetch-state: ## Fetch state from a live environment specified via STATE_FETCH_NAMESPACE
 	kubectl config current-context
