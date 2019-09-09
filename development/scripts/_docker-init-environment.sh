@@ -23,7 +23,7 @@ function ensure_writable {
   fi
 }
 
-for TEST_PATH in var/cache var/log web/uploads web/uploads/media; do
+for TEST_PATH in var/cache var/log web/uploads web/uploads/media var /var/symfony; do
   ensure_writable "${TEST_PATH}"
 done
 
